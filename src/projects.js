@@ -1,65 +1,64 @@
-/* Shared project data — replace with your own projects.
-   thumbs reuse the letter-mark placeholders until real images are supplied. */
+/* Shared project data — Abhishek Roshan's portfolio projects. */
 export var projects = [
   {
-    slug: "lovel",
-    title: "LOVEL",
-    category: "Website Design",
-    initial: "L",
+    slug: "reviso",
+    title: "Reviso",
+    category: "App & Website",
+    initial: "R",
     bg: "%23161616",
     fg: "%232b2b2b",
     description:
-      "A conversion-focused marketing site with an editorial layout system, CMS-driven case studies, and performance budgets enforced at build time.",
+      "AI flashcard app that turns notes and textbook photos into smart decks with spaced repetition — live on Google Play, with its marketing site that I also built and manage as founder and solo developer.",
   },
   {
-    slug: "soni",
-    title: "SONI",
-    category: "Framer Development",
-    initial: "S",
+    slug: "monkey-mind",
+    title: "Monkey Mind",
+    category: "Website Development",
+    initial: "M",
     bg: "%23181818",
     fg: "%232e2e2e",
     description:
-      "A Framer build with scroll-driven storytelling, reusable override components, and a content model editors can run without developer help.",
+      "Full responsive website for a design studio with Firebase CMS integration, built with Vite and Cloudinary media.",
   },
   {
-    slug: "pine-valley",
-    title: "Pine Valley",
-    category: "Speed & SEO",
+    slug: "pawshome",
+    title: "PawsHome",
+    category: "Website Design",
     initial: "P",
     bg: "%23141414",
     fg: "%23292929",
     description:
-      "A rebuild targeting Core Web Vitals and structured data — faster loads, cleaner semantics, and measurable organic-search gains.",
+      "Pet adoption website concept for an NGO, designed and built as an internship task.",
   },
   {
-    slug: "kyrosai",
-    title: "KyrosAI",
-    category: "CMS Architecture",
-    initial: "K",
+    slug: "ina",
+    title: "inA",
+    category: "Website Development",
+    initial: "A",
     bg: "%23171717",
     fg: "%232d2d2d",
     description:
-      "A modular CMS architecture with typed collections, preview environments, and editorial workflows for a growing marketing team.",
+      "Website built for an NGO as an internship task, fully responsive.",
   },
   {
-    slug: "delane",
-    title: "DELANE",
-    category: "Framer Development",
-    initial: "D",
+    slug: "coming-soon-client",
+    title: "Coming Soon",
+    category: "Client Project",
+    initial: "C",
     bg: "%23151515",
     fg: "%232a2a2a",
     description:
-      "A Framer site with a custom design system, motion language, and breakpoints tuned for a fashion-forward audience.",
+      "A new client project — details coming soon.",
   },
   {
-    slug: "noiri",
-    title: "NOIRI",
-    category: "Website Design",
-    initial: "N",
+    slug: "coming-soon-web",
+    title: "Coming Soon",
+    category: "Web Project",
+    initial: "C",
     bg: "%23191919",
     fg: "%23303030",
     description:
-      "A minimal portfolio-style marketing site with oversized type, generous whitespace, and subtle scroll reveals.",
+      "A new web project — details coming soon.",
   },
 ];
 

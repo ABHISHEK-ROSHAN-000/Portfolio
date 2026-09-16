@@ -224,42 +224,15 @@ import Lenis from "lenis";
     if (e.key === "Escape" && menu.classList.contains("open")) setMenu(false);
   });
 
-  /* Trusted-logo marquee: duplicate the track for a seamless loop */
-  var track = document.querySelector(".marquee-track");
-  if (track && !reduceMotion) {
-    Array.prototype.forEach.call(track.children, function (li) {
-      var copy = li.cloneNode(true);
+  /* Seamless loops: duplicate marquee + gallery tracks */
+  Array.prototype.forEach.call(document.querySelectorAll(".marquee-track, .gallery-track"), function (track) {
+    if (!track || reduceMotion) return;
+    Array.prototype.forEach.call(track.children, function (item) {
+      var copy = item.cloneNode(true);
       copy.setAttribute("aria-hidden", "true");
       track.appendChild(copy);
     });
-  }
-
-  /* Footer sculpture: subtle scroll-driven drift (cached offset + rAF throttle) */
-  var stage = document.querySelector(".footer-media");
-  var sculpture = document.querySelector(".footer-sculpture");
-  var stageTop = 0;
-  var stageTicking = false;
-  function measureStage() {
-    if (!stage) return;
-    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
-    stageTop = stage.getBoundingClientRect().top + y;
-  }
-  function onScroll() {
-    if (!stage || !sculpture || reduceMotion) return;
-    if (stageTicking) return;
-    stageTicking = true;
-    window.requestAnimationFrame(function () {
-      stageTicking = false;
-      var vh = window.innerHeight || 1;
-      var y = window.pageYOffset || document.documentElement.scrollTop || 0;
-      var progress = Math.min(1, Math.max(0, 1 - (stageTop - y) / vh));
-      sculpture.style.transform = "translateY(" + ((1 - progress) * 24).toFixed(1) + "px)";
-    });
-  }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", measureStage);
-  measureStage();
-  onScroll();
+  });
 
   /* Footer live clock: HH:MM:SS UTC */
   var timeEl = document.getElementById("local-time");

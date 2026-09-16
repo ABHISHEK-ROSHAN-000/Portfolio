@@ -12,7 +12,7 @@ import { projects, thumbSrc } from "./projects.js";
   var project = projects[idx];
   var next = projects[(idx + 1) % projects.length];
 
-  document.title = project.title + " — Yumiko";
+  document.title = project.title + " — Abhishek Roshan";
 
   var titleEl = document.getElementById("detail-title");
   var catEl = document.getElementById("detail-category");
