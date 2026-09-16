@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="generator" content="Static Replica">
+  <title>Project — Yumiko</title>
+  <meta name="description" content="Project case study by Yumiko.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23000'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='36' font-weight='900' fill='%23fff' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="max-image-preview:large">
+  <style>html,body{background:#000}body{margin:0;color:#fff}.wipe{position:fixed;inset:0;z-index:80;background:#000;pointer-events:none}</style>
+  <noscript><style>[data-reveal] { opacity: 1 !important; transform: none !important; }.wipe { display: none !important; }</style></noscript>
+</head>
+<body>
+  <div class="wipe" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Desktop header -->
+  <header class="site-header" data-reveal="header">
+    <div class="header-inner">
+      <div class="brand-block">
+        <a class="logo" href="./index.html">YUMIKO</a>
+        <span class="separator" aria-hidden="true"></span>
+        <nav class="main-nav" aria-label="Primary">
+          <a class="nav-link" href="./index.html">Home</a>
+          <a class="nav-link" href="./work.html">Work</a>
+          <a class="nav-link" href="./contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="available">
+        <span class="pulse-dot" aria-hidden="true"><span></span></span>
+        <span class="available-text">Available for work</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile header -->
+  <header class="mobile-header">
+    <a class="logo" href="./index.html">YUMIKO</a>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="bar bar-top"></span>
+      <span class="bar bar-bottom"></span>
+    </button>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="Mobile">
+      <a href="./index.html">Home</a>
+      <a href="./work.html">Work</a>
+      <a href="./contact.html">Contact</a>
+    </nav>
+    <p class="mobile-availability">Available for work</p>
+  </div>
+
+  <main id="top">
+    <!-- Project detail (rendered from ?slug=) -->
+    <section class="section work" aria-label="Project">
+      <div class="wrap">
+        <div class="section-intro">
+          <h2 class="display-h2" data-reveal id="detail-title">PROJECT</h2>
+          <p class="lede" data-reveal id="detail-category">Case study</p>
+          <div data-reveal>
+            <a class="dot-link" href="./work.html"><span class="dot-solid" aria-hidden="true"></span><span>All Work</span></a>
+          </div>
+        </div>
+        <div class="card-media detail-media" data-reveal>
+          <img id="detail-image" src="" width="1200" height="900" alt="">
+        </div>
+        <p class="lede" data-reveal id="detail-description" style="margin-top: 48px;"></p>
+        <div data-reveal>
+          <a class="dot-link" id="detail-next" href="./work.html"><span class="dot-solid" aria-hidden="true"></span><span>Next Project</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="section footer">
+    <div class="wrap wrap--center">
+      <p class="lede lede--center" data-reveal>Have an upcoming project, redesign, or custom web build? Let’s schedule a quick 15-minute intro call to discuss your project scope, timeline, and goals.</p>
+      <div data-reveal>
+        <a class="dot-link" href="https://cal.com"><span class="dot-solid" aria-hidden="true"></span><span>Book a Discovery Call</span></a>
+      </div>
+      <div class="footer-bottom">
+        <p class="fineprint">© 2026 Yumiko</p>
+        <div class="footer-socials">
+          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">Linkedin</a>
+          <span class="dot" aria-hidden="true"></span>
+          <a href="https://x.com/" target="_blank" rel="noreferrer">X</a>
+          <span class="dot" aria-hidden="true"></span>
+          <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+        <p class="fineprint clock"><span id="local-time">--:--:--</span><span class="clock-label" id="tz-name">Local</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/detail.js"></script>
+</body>
+</html>

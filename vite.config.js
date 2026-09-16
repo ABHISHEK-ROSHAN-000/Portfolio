@@ -5,4 +5,15 @@ import { defineConfig } from "vite";
 // (<user>.github.io/<repo>).
 export default defineConfig({
   base: "./",
+  build: {
+    rollupOptions: {
+      input: {
+        main: "index.html",
+        work: "work.html",
+        contact: "contact.html",
+        detail: "work-detail.html",
+        notfound: "404.html",
+      },
+    },
+  },
 });
