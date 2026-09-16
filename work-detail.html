@@ -56,46 +56,46 @@
 
   <main id="top">
     <!-- Project detail (rendered from ?slug=) -->
-    <section class="section work" aria-label="Project">
+    <section class="section detail" aria-label="Project">
       <div class="wrap">
-        <div class="section-intro">
-          <h2 class="display-h2" data-reveal id="detail-title">PROJECT</h2>
-          <p class="lede" data-reveal id="detail-category">Case study</p>
-          <div data-reveal>
-            <a class="dot-link" href="./work.html"><span class="dot-solid" aria-hidden="true"></span><span>All Work</span></a>
-          </div>
-        </div>
-        <div class="card-media detail-media" data-reveal>
+        <p class="detail-tagline" data-reveal id="detail-tagline">Project case study</p>
+        <h2 class="detail-title" data-reveal id="detail-title">PROJECT</h2>
+        <div class="card-media detail-media">
           <img id="detail-image" src="" width="1200" height="900" alt="">
         </div>
-        <p class="lede" data-reveal id="detail-description" style="margin-top: 48px;"></p>
-        <div data-reveal>
-          <a class="dot-link" id="detail-next" href="./work.html"><span class="dot-solid" aria-hidden="true"></span><span>Next Project</span></a>
+        <div class="detail-meta" data-reveal>
+          <div class="detail-facts">
+            <p class="fact"><span>Client:</span> <span id="detail-client"></span></p>
+            <p class="fact"><span>Service:</span> <span id="detail-service"></span></p>
+            <p class="fact"><span>Date:</span> <span id="detail-date"></span></p>
+            <div>
+              <a class="dot-link" id="detail-live" href="#"><span class="dot-solid" aria-hidden="true"></span><span>Live Site</span></a>
+            </div>
+          </div>
+          <div class="detail-body">
+            <h3 class="detail-sub">Overview</h3>
+            <p id="detail-overview"></p>
+            <h3 class="detail-sub">Challenge</h3>
+            <p id="detail-challenge"></p>
+            <h3 class="detail-sub">Solution</h3>
+            <p id="detail-solution"></p>
+          </div>
         </div>
+        <div class="detail-gallery" data-reveal id="detail-gallery"></div>
+        <div class="more-intro" data-reveal>
+          <h2 class="display-h2">MORE WORK</h2>
+          <p class="lede">Explore more projects and discover the work, challenges, and solutions behind each creation.</p>
+          <div>
+            <a class="dot-link" href="./work.html"><span class="dot-solid" aria-hidden="true"></span><span>Explore All Work</span></a>
+          </div>
+        </div>
+        <div class="work-grid" data-reveal id="detail-more"></div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="section footer">
-    <div class="wrap wrap--center">
-      <p class="lede lede--center" data-reveal>Have an upcoming project, redesign, or custom web build? Let’s schedule a quick 15-minute intro call to discuss your project scope, timeline, and goals.</p>
-      <div data-reveal>
-        <a class="dot-link" href="./contact.html"><span class="dot-solid" aria-hidden="true"></span><span>Get in Touch</span></a>
-      </div>
-      <div class="footer-bottom">
-        <p class="fineprint">© 2026 Abhishek Roshan</p>
-        <div class="footer-socials">
-          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">Linkedin</a>
-          <span class="dot" aria-hidden="true"></span>
-          <a href="https://x.com/" target="_blank" rel="noreferrer">X</a>
-          <span class="dot" aria-hidden="true"></span>
-          <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
-        </div>
-        <p class="fineprint clock"><span id="local-time">--:--:--</span><span class="clock-label" id="tz-name">Local</span></p>
-      </div>
-    </div>
-  </footer>
+  <!-- Footer (shared component, rendered by main.js) -->
+  <div id="site-footer"></div>
 
   <script type="module" src="/src/main.js"></script>
   <script type="module" src="/src/detail.js"></script>

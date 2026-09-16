@@ -63,10 +63,8 @@
     <!-- Work index -->
     <section class="section work" aria-label="Work">
       <div class="wrap">
-        <div class="section-intro">
-          <h2 class="display-h2" data-reveal>WORK</h2>
-          <p class="lede" data-reveal>Featured digital products, responsive web builds, and creative experiments developed recently.</p>
-        </div>
+        <p class="detail-tagline" data-reveal>Complete websites and web apps crafted for forward-thinking clients.</p>
+        <h2 class="detail-title" data-reveal>WORK <sup class="title-count" id="work-count">6</sup></h2>
 
         <div class="switch" data-reveal role="tablist" aria-label="Work layout">
           <button class="switch-option is-active" type="button" role="tab" aria-selected="true" data-view="list">List</button>
@@ -113,29 +111,30 @@
         </div>
       </div>
     </section>
+
+    <!-- Contact -->
+    <section class="section contact" id="contact" aria-label="Contact">
+      <div class="wrap">
+        <div class="contact-intro">
+          <h2 class="display-h2" data-reveal>LET'S START</h2>
+          <p class="lede" data-reveal>Have a website in mind or need a redesign? Let’s discuss how to bring your project to life.</p>
+        </div>
+        <div class="contact-rows" data-reveal>
+          <a class="contact-row" href="mailto:hello@yumiko.com"><span class="contact-label">hello@yumiko.com<svg class="arrow" viewBox="0 0 24 24" width="16" height="20" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+          <a class="contact-row" href="tel:+12025550184"><span class="contact-label">+1 202 555 0184<svg class="arrow" viewBox="0 0 24 24" width="16" height="20" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+          <a class="contact-row" href="https://www.instagram.com/"><span class="contact-label">Instagram<svg class="arrow" viewBox="0 0 24 24" width="16" height="20" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+          <a class="contact-row" href="https://www.linkedin.com/"><span class="contact-label">Linkedin<svg class="arrow" viewBox="0 0 24 24" width="16" height="20" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+          <a class="contact-row" href="https://github.com/"><span class="contact-label">GitHub<svg class="arrow" viewBox="0 0 24 24" width="16" height="20" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+          <a class="contact-row" href="https://x.com/"><span class="contact-label">X<svg class="arrow" viewBox="0 0 24 24" width="16" height="20" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="section footer">
-    <div class="wrap wrap--center">
-      <p class="lede lede--center" data-reveal>Have an upcoming project, redesign, or custom web build? Let’s schedule a quick 15-minute intro call to discuss your project scope, timeline, and goals.</p>
-      <div data-reveal>
-        <a class="dot-link" href="./contact.html"><span class="dot-solid" aria-hidden="true"></span><span>Get in Touch</span></a>
-      </div>
-      <div class="footer-bottom">
-        <p class="fineprint">© 2026 Abhishek Roshan</p>
-        <div class="footer-socials">
-          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">Linkedin</a>
-          <span class="dot" aria-hidden="true"></span>
-          <a href="https://x.com/" target="_blank" rel="noreferrer">X</a>
-          <span class="dot" aria-hidden="true"></span>
-          <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
-        </div>
-        <p class="fineprint clock"><span id="local-time">--:--:--</span><span class="clock-label" id="tz-name">Local</span></p>
-      </div>
-    </div>
-  </footer>
+  <!-- Footer (shared component, rendered by main.js) -->
+  <div id="site-footer"></div>
 
   <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/work-count.js"></script>
 </body>
 </html>
