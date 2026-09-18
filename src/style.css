@@ -598,7 +598,7 @@ a:focus-visible, button:focus-visible {
 
 .work .switch { margin-bottom: 12px; }
 
-.detail .detail-media { margin: 48px 0; }
+.detail .detail-media { margin: 48px 0; border-radius: 6px; }
 
 /* Project detail meta (facts + case study) */
 .detail-meta {

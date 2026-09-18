@@ -28,8 +28,12 @@ import { projects, thumbSrc, galleryThumbs } from "./projects.js";
   if (titleEl) titleEl.textContent = project.title;
   if (taglineEl) taglineEl.textContent = project.tagline;
   if (imgEl) {
-    imgEl.setAttribute("src", thumbSrc(project));
+    imgEl.setAttribute("src", project.heroImage || thumbSrc(project));
     imgEl.setAttribute("alt", project.title + " — " + project.category);
+    imgEl.onerror = function () {
+      imgEl.onerror = null;
+      imgEl.setAttribute("src", thumbSrc(project));
+    };
   }
   if (clientEl) clientEl.textContent = project.client;
   if (serviceEl) serviceEl.textContent = project.category;
@@ -43,13 +47,23 @@ import { projects, thumbSrc, galleryThumbs } from "./projects.js";
   if (solutionEl) solutionEl.textContent = project.solution;
   var galleryEl = document.getElementById("detail-gallery");
   if (galleryEl) {
-    galleryThumbs(project).forEach(function (g) {
+    var fallbacks = galleryThumbs(project);
+    var sources = project.galleryImages && project.galleryImages.length
+      ? project.galleryImages
+      : fallbacks.map(function (t) { return t.src; });
+    sources.slice(0, 4).forEach(function (src, i) {
       var fig = document.createElement("figure");
       fig.className = "g-item";
       var im = document.createElement("img");
-      im.setAttribute("src", g.src);
-      im.setAttribute("alt", g.alt);
+      im.setAttribute("src", src);
+      im.setAttribute("alt", project.title + " — screenshot " + (i + 1));
       im.setAttribute("loading", "lazy");
+      im.onerror = (function (n) {
+        return function () {
+          im.onerror = null;
+          im.setAttribute("src", fallbacks[n].src);
+        };
+      })(i);
       fig.appendChild(im);
       galleryEl.appendChild(fig);
     });
@@ -64,9 +78,15 @@ import { projects, thumbSrc, galleryThumbs } from "./projects.js";
       var media = document.createElement("span");
       media.className = "card-media";
       var im = document.createElement("img");
-      im.setAttribute("src", thumbSrc(q));
+      im.setAttribute("src", q.heroImage || thumbSrc(q));
       im.setAttribute("alt", q.title);
       im.setAttribute("loading", "lazy");
+      im.onerror = (function (qq, el) {
+        return function () {
+          el.onerror = null;
+          el.setAttribute("src", thumbSrc(qq));
+        };
+      })(q, im);
       media.appendChild(im);
       var meta = document.createElement("span");
       meta.className = "card-meta";

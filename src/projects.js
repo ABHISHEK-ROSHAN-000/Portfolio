@@ -2,6 +2,13 @@
 export var projects = [
   {
     slug: "reviso",
+    heroImage: "/images/reviso/main.webp",
+    galleryImages: [
+      "/images/reviso/1.webp",
+      "/images/reviso/2.webp",
+      "/images/reviso/3.webp",
+      "/images/reviso/4.webp",
+    ],
     title: "Reviso",
     category: "App & Website",
     initial: "R",
@@ -21,6 +28,13 @@ export var projects = [
   },
   {
     slug: "monkey-mind",
+    heroImage: "/images/monkey-mind/main.webp",
+    galleryImages: [
+      "/images/monkey-mind/1.webp",
+      "/images/monkey-mind/2.webp",
+      "/images/monkey-mind/3.webp",
+      "/images/monkey-mind/4.webp",
+    ],
     title: "Monkey Mind",
     category: "Website Development",
     initial: "M",
@@ -40,6 +54,13 @@ export var projects = [
   },
   {
     slug: "pawshome",
+    heroImage: "/images/pawshome/main.webp",
+    galleryImages: [
+      "/images/pawshome/1.webp",
+      "/images/pawshome/2.webp",
+      "/images/pawshome/3.webp",
+      "/images/pawshome/4.webp",
+    ],
     title: "PawsHome",
     category: "Website Design",
     initial: "P",
@@ -59,6 +80,13 @@ export var projects = [
   },
   {
     slug: "ina",
+    heroImage: "/images/ina/main.webp",
+    galleryImages: [
+      "/images/ina/1.webp",
+      "/images/ina/2.webp",
+      "/images/ina/3.webp",
+      "/images/ina/4.webp",
+    ],
     title: "inA",
     category: "Website Development",
     initial: "A",
@@ -78,6 +106,13 @@ export var projects = [
   },
   {
     slug: "coming-soon-client",
+    heroImage: "/images/coming-soon-client/main.webp",
+    galleryImages: [
+      "/images/coming-soon-client/1.webp",
+      "/images/coming-soon-client/2.webp",
+      "/images/coming-soon-client/3.webp",
+      "/images/coming-soon-client/4.webp",
+    ],
     title: "Coming Soon",
     category: "Client Project",
     initial: "C",
@@ -97,6 +132,13 @@ export var projects = [
   },
   {
     slug: "coming-soon-web",
+    heroImage: "/images/coming-soon-web/main.webp",
+    galleryImages: [
+      "/images/coming-soon-web/1.webp",
+      "/images/coming-soon-web/2.webp",
+      "/images/coming-soon-web/3.webp",
+      "/images/coming-soon-web/4.webp",
+    ],
     title: "Coming Soon",
     category: "Web Project",
     initial: "C",
