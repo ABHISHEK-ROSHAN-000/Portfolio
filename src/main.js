@@ -46,7 +46,7 @@ import { footerHTML } from "./components/footer.js";
           }
         });
       },
-      { threshold: 0.5, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.3, rootMargin: "0px 0px -8% 0px" }
     );
     revealEls.forEach(function (el) { observer.observe(el); });
   } else {
@@ -64,28 +64,11 @@ import { footerHTML } from "./components/footer.js";
     window.requestAnimationFrame(rafLenis);
   }
 
-  /* Portrait parallax on desktop only */
-  var portrait = document.querySelector(".hero-portrait");
-  if (portrait && window.innerWidth >= 810 && !reduceMotion) {
-    portrait.addEventListener("mousemove", function (e) {
-      var rect = portrait.getBoundingClientRect();
-      var x = (e.clientX - rect.left) / rect.width - 0.5;
-      var y = (e.clientY - rect.top) / rect.height - 0.5;
-      var img = portrait.querySelector("img");
-      if (img) {
-        img.style.transform = "translate(" + (x * -20) + "px, " + (y * -20) + "px)";
-      }
-    });
-    portrait.addEventListener("mouseleave", function () {
-      var img = portrait.querySelector("img");
-      if (img) img.style.transform = "";
-    });
-  }
-
-  /* Work List / Grid switch — set initial view by breakpoint (List on desktop, Grid below 1200px) */
+  /* Work List / Grid switch — per-page default override, else List on desktop / Grid below 1200px */
   var switchOptions = document.querySelectorAll(".switch-option");
   var views = document.querySelectorAll("[data-work-view]");
-  var initialView = window.innerWidth >= 1200 ? "list" : "grid";
+  var switchRoot = document.querySelector(".switch");
+  var initialView = (switchRoot && switchRoot.getAttribute("data-view-default")) || (window.innerWidth >= 1200 ? "list" : "grid");
   views.forEach(function (panel) {
     panel.hidden = panel.getAttribute("data-work-view") !== initialView;
   });
@@ -125,11 +108,19 @@ import { footerHTML } from "./components/footer.js";
     preview.appendChild(previewImg);
     document.body.appendChild(preview);
     var rows = workList.querySelectorAll(".work-row");
+    var lastMX = null;
+    var lastMY = null;
+    document.addEventListener("mousemove", function (e) {
+      lastMX = e.clientX;
+      lastMY = e.clientY;
+    }, { passive: true });
     workList.addEventListener("mousemove", function (e) {
       preview.style.transform = "translate(" + (e.clientX + 24) + "px, " + (e.clientY - 110) + "px)";
     });
     Array.prototype.forEach.call(rows, function (row, i) {
       row.addEventListener("mouseenter", function () {
+        if (lastMX === null || lastMY === null) return;
+        preview.style.transform = "translate(" + (lastMX + 24) + "px, " + (lastMY - 110) + "px)";
         previewImg.setAttribute("src", thumbs[i] || "");
         preview.classList.remove("show");
         void preview.offsetWidth;
@@ -146,6 +137,7 @@ import { footerHTML } from "./components/footer.js";
     var dot = document.createElement("div");
     dot.className = "cursor-dot";
     dot.setAttribute("aria-hidden", "true");
+    dot.innerHTML = '<span class="cursor-label">View</span><svg class="cursor-arrow" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     document.body.appendChild(dot);
     var targetX = -100;
     var targetY = -100;
@@ -166,16 +158,47 @@ import { footerHTML } from "./components/footer.js";
       dotVisible = false;
       dot.classList.remove("on");
     });
+    var currentLabel = "View";
+    var labelTimer = null;
+    document.addEventListener("mouseover", function (e) {
+      var hit = e.target.closest ? e.target.closest(".card, .contact-row") : null;
+      var label = "View";
+      if (hit && hit.classList.contains("contact-row")) {
+        var href = hit.getAttribute("href") || "";
+        if (href.indexOf("mailto:") === 0) label = "Say Hi";
+        else if (href.indexOf("tel:") === 0) label = "Call";
+        else label = "Open";
+      }
+      dot.classList.toggle("view", !!hit);
+      if (label === currentLabel) return;
+      currentLabel = label;
+      var labelEl = dot.querySelector(".cursor-label");
+      if (!labelEl) return;
+      window.clearTimeout(labelTimer);
+      labelEl.style.opacity = "0";
+      labelTimer = window.setTimeout(function () {
+        labelEl.textContent = label;
+        labelEl.style.opacity = "";
+      }, 120);
+    });
     var last = window.performance.now();
-    (function follow(now) {
-      var dt = Math.min(50, now - last) / 16.667;
+    var follow = function (now) {
+      var dt = now - last;
+      if (!isFinite(dt) || dt < 0) dt = 16.667;
+      dt = Math.min(50, dt) / 16.667;
       last = now;
+      if (!isFinite(dotX) || !isFinite(dotY)) { dotX = targetX; dotY = targetY; }
       var f = 1 - Math.pow(1 - 0.12, dt);
       dotX += (targetX - dotX) * f;
       dotY += (targetY - dotY) * f;
-      dot.style.transform = "translate(" + dotX.toFixed(1) + "px, " + dotY.toFixed(1) + "px)";
+      dot.style.transform = "translate(" + dotX.toFixed(1) + "px, " + dotY.toFixed(1) + "px) translate(-50%, -50%)";
       window.requestAnimationFrame(follow);
-    })();
+    };
+    window.requestAnimationFrame(follow);
+    window.addEventListener("pageshow", function () {
+      dotX = targetX;
+      dotY = targetY;
+    });
   }
 
   /* Page wipe transitions (vertical; skipped under reduced motion via CSS) */

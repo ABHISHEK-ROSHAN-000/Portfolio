@@ -66,14 +66,14 @@
         <p class="detail-tagline" data-reveal>Complete websites and web apps crafted for forward-thinking clients.</p>
         <h2 class="detail-title" data-reveal>WORK <sup class="title-count" id="work-count">6</sup></h2>
 
-        <div class="switch" data-reveal role="tablist" aria-label="Work layout">
-          <button class="switch-option is-active" type="button" role="tab" aria-selected="true" data-view="list">List</button>
+        <div class="switch" data-reveal role="tablist" aria-label="Work layout" data-view-default="grid">
+          <button class="switch-option" type="button" role="tab" aria-selected="false" data-view="list">List</button>
           <span class="switch-divider" aria-hidden="true">/</span>
-          <button class="switch-option" type="button" role="tab" aria-selected="false" data-view="grid">Grid</button>
+          <button class="switch-option is-active" type="button" role="tab" aria-selected="true" data-view="grid">Grid</button>
         </div>
 
         <!-- List view -->
-        <div class="work-list" data-work-view="list" data-reveal>
+        <div class="work-list" data-work-view="list" data-reveal hidden>
           <a class="work-row" href="./work-detail.html?slug=reviso"><span class="work-title">Reviso</span><span class="work-cat">App &amp; Website<svg class="row-arrow" viewBox="0 0 24 24" width="16" height="20" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
           <a class="work-row" href="./work-detail.html?slug=monkey-mind"><span class="work-title">Monkey Mind</span><span class="work-cat">Website Development<svg class="row-arrow" viewBox="0 0 24 24" width="16" height="20" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
           <a class="work-row" href="./work-detail.html?slug=pawshome"><span class="work-title">PawsHome</span><span class="work-cat">Website Design<svg class="row-arrow" viewBox="0 0 24 24" width="16" height="20" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
@@ -83,7 +83,7 @@
         </div>
 
         <!-- Grid view -->
-        <div class="work-grid" data-work-view="grid" hidden>
+        <div class="work-grid" data-work-view="grid">
           <a class="card" href="./work-detail.html?slug=reviso">
             <span class="card-media"><img src="/images/reviso/main.webp" width="1200" height="900" alt="Reviso" loading="lazy"></span>
             <span class="card-meta"><span class="work-title">Reviso</span><span class="work-cat">App &amp; Website</span></span>

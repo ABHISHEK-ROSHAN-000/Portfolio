@@ -367,7 +367,6 @@ a:focus-visible, button:focus-visible {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.4s ease;
 }
 
 /* Dot-led text links (Explore / Book a call) */
@@ -924,16 +923,58 @@ a:focus-visible, button:focus-visible {
   z-index: 100;
   width: 14px;
   height: 14px;
-  margin: -4px 0 0 -4px;
   border-radius: 50%;
   background: #fff;
   mix-blend-mode: difference;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: opacity 0.2s ease, width 0.25s ease, height 0.25s ease, padding 0.25s ease, border-radius 0.25s ease, background-color 0.25s ease;
 }
 
 .cursor-dot.on { opacity: 1; }
+
+.cursor-dot .cursor-label,
+.cursor-dot .cursor-arrow {
+  max-width: 0;
+  opacity: 0;
+  flex: none;
+  overflow: hidden;
+  transition: opacity 0.2s ease, max-width 0.25s ease;
+}
+
+.cursor-dot.view {
+  width: auto;
+  height: auto;
+  padding: 8px 14px;
+  border-radius: 100px;
+  background: #fff;
+  mix-blend-mode: normal;
+}
+
+.cursor-dot.view .cursor-label,
+.cursor-dot.view .cursor-arrow {
+  max-width: 60px;
+  opacity: 1;
+}
+
+.cursor-dot.view .cursor-label {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  color: #000;
+}
+
+.cursor-dot.view .cursor-arrow { color: #000; }
+
+@media (pointer: fine) {
+  .card, .card *, .contact-row, .contact-row * { cursor: none; }
+}
 
 /* Page wipe transitions */
 .wipe {
@@ -1056,5 +1097,4 @@ a:focus-visible, button:focus-visible {
   .marquee-track { animation: none; }
   .gallery-track { animation: none; }
   .pulse-dot::before { animation: none; }
-  .hero-portrait img { transition: none; }
 }
