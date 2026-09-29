@@ -360,6 +360,15 @@ a:focus-visible, button:focus-visible {
   background: transparent;
 }
 
+/* Mobile wordmark speaks the same pixel language as the hero name. */
+.mobile-header .logo {
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
 .menu-toggle {
   display: flex;
   flex-direction: column;
@@ -1698,7 +1707,7 @@ a:focus-visible, button:focus-visible {
   .hero--stage { display: flex; align-items: center; min-height: 100svh; padding: 88px 0 72px; }
   .hero-grid { background-size: 60px 60px; }
   .hero-stage { padding: 0 20px; }
-  .hero-clock { margin-bottom: 52px; }
+  .hero-clock { margin-bottom: 76px; }
   .hero-intro { min-height: 0; gap: 20px; }
   .hero-scribble { font-size: 30px; }
   .scribble-underline { width: 92px; height: 11px; }
@@ -1706,20 +1715,20 @@ a:focus-visible, button:focus-visible {
   .tape { padding: 11px 18px; font-size: 13px; white-space: normal; text-align: center; }
   .tape, .avatar-pin { animation: none; }
   .hero-name-box { padding: 12px 18px; }
-  .hero-name { font-size: clamp(24px, 11vw, 44px); letter-spacing: 0.03em; transform: translate(0.015em, 0.058em); }
+  .hero-name { font-size: clamp(28px, 13vw, 52px); letter-spacing: 0.03em; transform: translate(0.015em, 0.058em); }
   .sel-handle { width: 11px; height: 11px; border-width: 1.5px; }
   .sel-handle--tl, .sel-handle--tr { top: -6px; }
   .sel-handle--bl, .sel-handle--br { bottom: -6px; }
   .sel-handle--tl, .sel-handle--bl { left: -6px; }
   .sel-handle--tr, .sel-handle--br { right: -6px; }
-  .hero-avail { margin-top: 24px; font-size: 11px; letter-spacing: 0.08em; }
+  .hero-avail { margin-top: 32px; font-size: 11px; letter-spacing: 0.08em; }
   .hero-scatter {
     position: static;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 14px;
-    margin: 44px 0 0;
+    margin: 56px 0 0;
   }
   .avatar-pin { display: none; }
   .chip { position: static; padding: 13px 18px; font-size: 12px; }
@@ -1730,7 +1739,7 @@ a:focus-visible, button:focus-visible {
   .chip-cursor { display: block; width: 18px; height: 18px; }
   .chip--role .chip-cursor { left: -12px; right: auto; top: -10px; transform: none; }
   .chip--loc .chip-cursor { right: -12px; left: auto; top: -10px; transform: none; }
-  .hero-cta { margin-top: 56px; }
+  .hero-cta { margin-top: 84px; }
   .hero-tagline { margin-bottom: 32px; }
   .hero-tagline-break { display: none; }
   .hero-btn { gap: 12px; padding: 6px 18px 6px 6px; }
