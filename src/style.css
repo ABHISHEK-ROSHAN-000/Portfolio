@@ -1700,9 +1700,9 @@ a:focus-visible, button:focus-visible {
   .hero-intro { min-height: 0; gap: 20px; }
   .hero-scribble { font-size: 30px; }
   .scribble-underline { width: 92px; height: 11px; }
-  .hero-tapes { flex-direction: column; align-items: center; gap: 14px; margin: 24px 0 0; }
+  .hero-tapes { display: none; }
   .tape { padding: 11px 18px; font-size: 13px; white-space: normal; text-align: center; }
-  .tape, .chip, .avatar-pin { animation: none; }
+  .tape, .avatar-pin { animation: none; }
   .hero-name-box { padding: 12px 18px; }
   .hero-name { font-size: clamp(24px, 11vw, 44px); letter-spacing: 0.03em; transform: translate(0.015em, 0.058em); }
   .sel-handle { width: 11px; height: 11px; border-width: 1.5px; }
@@ -1721,8 +1721,8 @@ a:focus-visible, button:focus-visible {
   }
   .avatar-pin { display: none; }
   .chip { position: static; padding: 13px 18px; font-size: 12px; }
-  .chip--role { transform: rotate(-3deg); }
-  .chip--loc { transform: rotate(3deg); }
+  .chip--role { transform: rotate(-3deg); --rot: -3deg; --rot2: -1.5deg; }
+  .chip--loc { transform: rotate(3deg); --rot: 3deg; --rot2: 1.5deg; }
   .chip-cursor { display: none; }
   .hero-cta { margin-top: 56px; }
   .hero-tagline { margin-bottom: 32px; }
