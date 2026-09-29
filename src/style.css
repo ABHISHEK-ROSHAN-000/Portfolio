@@ -1701,10 +1701,8 @@ a:focus-visible, button:focus-visible {
   .site-header { display: none; }
   .mobile-header { display: flex; }
   .hero { padding: 96px 0 64px; }
-  /* Mobile hero fills the viewport like desktop: flex centering
-     distributes the air; min-height (not fixed) keeps short screens
-     graceful — content is ~630px, so sub-630px viewports just grow. */
-  .hero--stage { display: flex; align-items: center; min-height: 100svh; padding: 88px 0 72px; }
+  /* Stacked content flows naturally; the page continues below. */
+  .hero--stage { display: block; min-height: 0; padding: 88px 0 72px; }
   .hero-grid { background-size: 60px 60px; }
   .hero-stage { padding: 0 20px; }
   .hero-clock { margin-bottom: 76px; }
