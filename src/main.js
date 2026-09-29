@@ -137,7 +137,7 @@ import { footerHTML } from "./components/footer.js";
     var dot = document.createElement("div");
     dot.className = "cursor-dot";
     dot.setAttribute("aria-hidden", "true");
-    dot.innerHTML = '<span class="cursor-label">View</span><svg class="cursor-arrow" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    dot.innerHTML = '<span class="cursor-select" aria-hidden="true"><span class="sh sh--tl"></span><span class="sh sh--tr"></span><span class="sh sh--bl"></span><span class="sh sh--br"></span></span><span class="cursor-you">YOU</span><span class="cursor-label">View</span><svg class="cursor-arrow" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     document.body.appendChild(dot);
     var targetX = -100;
     var targetY = -100;
@@ -162,6 +162,8 @@ import { footerHTML } from "./components/footer.js";
     var labelTimer = null;
     document.addEventListener("mouseover", function (e) {
       var hit = e.target.closest ? e.target.closest(".card, .contact-row") : null;
+      var inHero = e.target.closest ? !!e.target.closest(".hero--stage") : false;
+      var inName = e.target.closest ? !!e.target.closest(".hero-name-box, .hero-tapes") : false;
       var label = "View";
       if (hit && hit.classList.contains("contact-row")) {
         var href = hit.getAttribute("href") || "";
@@ -170,6 +172,10 @@ import { footerHTML } from "./components/footer.js";
         else label = "Open";
       }
       dot.classList.toggle("view", !!hit);
+      /* The YOU tag rides the same cursor while it is over the hero collage. */
+      dot.classList.toggle("you", inHero && !hit && !inName);
+      /* Over the name box the cursor itself becomes the selection marquee. */
+      dot.classList.toggle("select", inName && !hit);
       if (label === currentLabel) return;
       currentLabel = label;
       var labelEl = dot.querySelector(".cursor-label");
@@ -275,4 +281,20 @@ import { footerHTML } from "./components/footer.js";
   }
   tick();
   window.setInterval(tick, 1000);
+
+  /* Hero clock: visitor-local 12h HH:MM:SS AM/PM */
+  var heroTime = document.getElementById("hero-time");
+  if (heroTime) {
+    var tickHero = function () {
+      var now = new Date();
+      var hh = now.getHours();
+      var suffix = hh >= 12 ? "PM" : "AM";
+      hh = hh % 12 || 12;
+      heroTime.textContent = String(hh).padStart(2, "0") + ":" +
+        String(now.getMinutes()).padStart(2, "0") + ":" +
+        String(now.getSeconds()).padStart(2, "0") + " " + suffix;
+    };
+    tickHero();
+    window.setInterval(tickHero, 1000);
+  }
 })();

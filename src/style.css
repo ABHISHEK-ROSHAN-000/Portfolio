@@ -7,6 +7,45 @@
   font-display: swap;
 }
 
+/* Flux — self-hosted display pixel face (OFL, © 2024 Ralph Bruens).
+   Ships a single weight: the only fvar axis is a collapsed `wdth`
+   (min == max), so it must be used at weight 400 — 700/900 are no-ops.
+   Coverage is 68 glyphs (A-Z a-z 0-9 space . , - @); / ' & are absent, so
+   every stack that uses it keeps a grotesk behind it for per-glyph fallback. */
+@font-face {
+  font-family: "Flux";
+  src: url("./fonts/FluxVF.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Caveat — handwriting for the hero "my name is" mark (OFL, variable latin). */
+@font-face {
+  font-family: "Caveat";
+  src: url("./fonts/Caveat-Variable.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Space Mono — monospace for hero clock, tapes and labels (OFL, latin subset). */
+@font-face {
+  font-family: "Space Mono";
+  src: url("./fonts/SpaceMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  src: url("./fonts/SpaceMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Yumiko — Framer template replica. Tokens and layout from the original spec. */
 :root {
   --bg: #000;
@@ -15,8 +54,12 @@
   --border: #737373;
   --green: rgb(60, 255, 0);
   --green-glow: rgba(119, 255, 0, 0.5);
+  --hero-cyan: #4cc9f0;
   --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-display: "BDO Grotesk", "Archivo", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-pixel: "Flux", "BDO Grotesk", "Archivo", Impact, sans-serif;
+  --font-hand: "Caveat", "Segoe Script", "Bradley Hand", cursive;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --wrap: 1200px;
   --gutter: 24px;
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -85,11 +128,11 @@ a:focus-visible, button:focus-visible {
 
 /* Type */
 .display-h2 {
-  font-family: var(--font-display);
-  font-weight: 900;
+  font-family: var(--font-pixel);
+  font-weight: 400;
   font-size: 60px;
   line-height: 1;
-  letter-spacing: -0.05em;
+  letter-spacing: 0;
   margin: 0 0 24px;
 }
 
@@ -139,62 +182,128 @@ a:focus-visible, button:focus-visible {
   text-decoration: none;
 }
 
-/* Header (desktop) — fixed top bar, transparent */
+/* Header (desktop) — fixed icon toolbar, active highlight block */
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 50;
+  background: #000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .header-inner {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   gap: 24px;
   width: 100%;
   max-width: var(--wrap);
+  height: 48px;
   margin: 0 auto;
-  padding: 12px var(--gutter);
+  padding: 0 var(--gutter);
   background: transparent;
   border: 0;
 }
 
+.logo-mark {
+  align-self: center;
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--text);
+  text-decoration: none;
+}
+
 .brand-block {
   display: flex;
-  align-items: center;
-  gap: 24px;
+  align-items: stretch;
+  gap: 20px;
   min-width: 0;
 }
 
+.brand-block > .logo { align-self: center; }
+
 .separator {
   width: 1px;
-  align-self: stretch;
-  min-height: 20px;
+  align-self: center;
+  height: 20px;
   background: var(--muted);
   opacity: 0.6;
 }
 
 .main-nav {
   display: flex;
-  align-items: center;
-  gap: 24px;
+  align-items: stretch;
+  gap: 4px;
 }
 
 .nav-link {
   position: relative;
-  display: inline-block;
-  line-height: 1.2;
-  padding: 1px 4px;
-  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
   text-decoration: none;
-  font-weight: 500;
-  background: linear-gradient(#fff, #fff) left center / 0% 100% no-repeat;
-  transition: background-size 0.6s ease, color 0.2s ease;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: transparent;
+  white-space: nowrap;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-.nav-link:hover { color: #000; background-size: 100% 100%; }
+.nav-link svg { flex: none; }
+
+.nav-link:hover { background: #fff; color: #000; }
+
+.nav-link[aria-current="page"],
+.nav-link[aria-current="page"]:hover {
+  background: var(--hero-cyan);
+  color: #000;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.contact-btn svg { flex: none; }
+
+.contact-btn:hover { background: #fff; color: #000; }
+
+/* Tablet-narrow: availability pill would crowd the toolbar — it also
+   lives in the mobile menu and the hero, so hide it here. */
+@media (max-width: 1023.98px) {
+  .site-header .available { display: none; }
+}
 
 .available {
   display: flex;
@@ -325,23 +434,6 @@ a:focus-visible, button:focus-visible {
 /* Hero / Cover */
 .hero { padding: 96px 0 96px; }
 
-.hero-statement {
-  font-size: 48px;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: normal;
-  margin: 0 0 48px;
-  max-width: 1152px;
-}
-
-.hero-bottom {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 0;
-  height: 500px;
-}
-
 .hero-year {
   font-family: var(--font-display);
   font-weight: 900;
@@ -351,22 +443,435 @@ a:focus-visible, button:focus-visible {
   margin: 0;
 }
 
-.hero-portrait {
-  width: 400px;
-  height: 500px;
-  flex: none;
-  margin-right: 100px;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #141414;
+/* --------------------------------------------------------------------------
+   Hero — playground stickers (dark)
+   Scattered tape/chip stickers on a blueprint grid, centred name block,
+   float animation driven entirely by --rot / --dx / --dy custom properties.
+   -------------------------------------------------------------------------- */
+.hero--stage {
   position: relative;
+  overflow: clip;
+  /* Whole collage must land inside one viewport: the stage is a flex
+     column that centres, and the name shrinks on short screens via vh. */
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 96px 0 56px;
 }
 
-.hero-portrait img {
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 100px 100px;
+  -webkit-mask-image: radial-gradient(120% 88% at 50% 28%, #000 0%, rgba(0, 0, 0, 0.3) 58%, transparent 100%);
+  mask-image: radial-gradient(120% 88% at 50% 28%, #000 0%, rgba(0, 0, 0, 0.3) 58%, transparent 100%);
+}
+
+.hero-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Shared drift: each sticker supplies its own rest rotation and travel.
+   Stays 2D on purpose — a 3D transform here promotes the layer and gets
+   skewed by software rasterisers. */
+@keyframes hero-drift {
+  0% { transform: rotate(var(--rot, 0deg)) translate(var(--dx0, 6px), var(--dy0, -6px)); }
+  100% { transform: rotate(var(--rot2, var(--rot, 0deg))) translate(var(--dx1, -6px), var(--dy1, 6px)); }
+}
+
+@keyframes hero-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* Clock */
+.hero-clock {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  /* Reference rhythm: big air below the clock, capped by vh so short
+     screens compress instead of overflowing. */
+  margin: 0 0 min(140px, 14vh);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+/* Centred column: mark, tapes, name box, availability */
+.hero-core {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  text-align: center;
+}
+
+/* Shrink-wraps to the name box, so the "You" mark tracks its left edge */
+.hero-head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+
+.hero-intro {
+  position: relative;
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-scribble {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text);
+}
+
+.scribble-underline { color: var(--text); opacity: 0.85; }
+
+/* Tapes flanking the name block */
+.hero-tapes {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 95px;
+  width: 100%;
+  /* Tapes rest on the selection box's top border — never over the name. */
+  margin: 4px 0 -6px;
+}
+
+.tape {
+  display: inline-block;
+  padding: 13px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: #0b0b0b;
+  white-space: nowrap;
+  /* No shadow — tapes sit flat above the name box per the reference. */
+  /* Static by design — the tilt is the resting pose, no drift. */
+  transform: rotate(var(--rot, 0deg));
+}
+
+.tape--mint { --rot: 7deg; --rot2: 4.5deg; --dy0: -10px; --dy1: 4px; background: #a8ddb8; }
+.tape--beige { --rot: -7deg; --rot2: -4.5deg; --dy0: 8px; --dy1: -6px; background: #f2dfa6; }
+
+/* Name block with a design-tool selection box */
+.hero-name-box {
+  position: relative;
+  z-index: 2;
+  max-width: 100%;
+  padding: 16px 28px;
+  border: 2px solid var(--hero-cyan);
+}
+
+.hero-name {
+  margin: 0;
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  /* Flux advances ~0.53em/char, so it needs a much larger optical size
+     than a text face to fill the selection box. min(9vw, 13vh) keeps the
+     whole collage on one screen on short laptops. */
+  font-size: clamp(34px, min(9vw, 13vh), 132px);
+  /* Flux is a pixel face: negative tracking collides glyphs, and the
+     reference name sits wide, so open the tracking up instead. */
+  line-height: 0.9;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text);
+  /* Centre the caps in the frame: +Y absorbs Flux's unused descender
+     depth, +X returns half the trailing tracking space (centred text
+     leaves the full tracking advance on the right). em here resolves
+     against this element's own font-size, so it tracks every clamp. */
+  transform: translate(0.03em, 0.058em);
+}
+
+.sel-handle {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  background: var(--hero-cyan);
+  border: 2px solid #000;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.sel-handle--tl { top: -7px; left: -7px; }
+.sel-handle--tr { top: -7px; right: -7px; }
+.sel-handle--bl { bottom: -7px; left: -7px; }
+.sel-handle--br { bottom: -7px; right: -7px; }
+
+.hero-avail {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 28px 0 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.hero-avail-dot {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--hero-cyan);
+  animation: hero-blink 2.6s ease-in-out infinite;
+}
+
+/* Absolutely placed scatter — never intercepts pointer events */
+.hero-scatter {
+  position: absolute;
+  inset: 0 var(--gutter);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.avatar-pin {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  padding: 6px;
+  border-radius: 50% 50% 50% 12px;
+  background: var(--hero-cyan);
+  transform: rotate(var(--rot, 0deg));
+  animation: hero-drift 9s ease-in-out infinite alternate;
+}
+
+.avatar-pin img {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
   object-fit: cover;
-  object-position: center;
+}
+
+/* Positions are % of the stage box, so the collage holds its composition
+   on any hero height instead of drifting off-screen on short viewports. */
+.avatar-pin--a { top: 46%; left: 0; --rot: -6deg; --rot2: 4deg; --dy0: -8px; --dy1: 8px; }
+.avatar-pin--b { top: 61%; right: 1%; --rot: 8deg; --rot2: -5deg; --dy0: 8px; --dy1: -8px; }
+
+.chip {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  padding: 16px 26px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.5);
+  transform: rotate(var(--rot, 0deg));
+  animation: hero-drift 8.5s ease-in-out infinite alternate;
+}
+
+.chip--role {
+  top: 88%;
+  left: 3%;
+  color: #0b0b0b;
+  background: #ffc42e;
+  --rot: -12deg;
+  --rot2: -9.5deg;
+  --dx0: -6px;
+  --dy0: -6px;
+}
+
+.chip--loc {
+  top: 68%;
+  right: 22%;
+  color: #fff;
+  background: #e8395e;
+  --rot: 12deg;
+  --rot2: 9.5deg;
+  --dx0: 6px;
+  --dy0: 6px;
+}
+
+/* The chip arrows sit on the black background, so a black arrow (inherited
+   from the yellow chip) would vanish — recolour per chip instead. */
+.chip-cursor {
+  position: absolute;
+  top: -12px;
+  right: -22px;
+  transform: rotate(20deg);
+}
+
+.chip--role .chip-cursor { color: #ffc42e; }
+
+.chip--loc .chip-cursor {
+  right: auto;
+  top: -10px;
+  left: -22px;
+  color: #ffb3c6;
+  transform: rotate(72deg);
+}
+
+/* Tagline + contact button */
+.hero-cta {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 720px;
+  /* Reference rhythm: ~200px of air between avail line and tagline,
+     compressing on short viewports to preserve the 100vh fit. */
+  margin: min(186px, 17vh) auto 0;
+  text-align: center;
+}
+
+/* Text flow, not flex — long lines must wrap normally on narrow screens */
+.hero-tagline {
+  margin: 0 0 34px;
+  font-size: clamp(26px, min(2.8vw, 5.4vh), 40px);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  text-align: center;
+  color: var(--text);
+}
+
+/* A bare <br> breaks exactly once by default — no wrapper needed.
+   Mobile hides it so the tagline re-flows instead. */
+
+.tagline-target,
+.tagline-flower {
+  display: inline-block;
+  vertical-align: -0.14em;
+}
+
+.tagline-target { color: var(--green); }
+.tagline-end { display: inline-block; }
+.tagline-flower { color: #ff3d6e; }
+
+.hero-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 22px 6px 6px;
+  border-radius: 3px;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.2s ease;
+}
+
+/* Hover: black slab, white 2px ring that grows in (name-box language).
+   Inset shadow never touches layout or content — only the border scales. */
+.hero-btn:hover {
+  background: #000;
+  color: #fff;
+  box-shadow: inset 0 0 0 2px #fff;
+}
+
+.hero-btn-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 9px;
+  background: var(--hero-cyan);
+  color: #000;
+  transition: background-color 0.25s ease;
+}
+
+/* Hover icon: pink square + cyan circle assemble over the cyan block
+   (same » glyph stays on top throughout — markup untouched). */
+.hero-btn-icon::before,
+.hero-btn-icon::after {
+  content: "";
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.hero-btn-icon::before {
+  inset: 0;
+  border-radius: 7px;
+  background: #e8395e;
+}
+
+.hero-btn-icon::after {
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--hero-cyan);
+}
+
+.hero-btn-icon svg {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-btn:hover .hero-btn-icon { background: transparent; }
+
+.hero-btn:hover .hero-btn-icon::before,
+.hero-btn:hover .hero-btn-icon::after { opacity: 1; }
+
+/* Name-box-style corner handles, hover-only. */
+.btn-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--hero-cyan);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.bh--tl { top: -5px; left: -5px; }
+.bh--tr { top: -5px; right: -5px; }
+.bh--bl { bottom: -5px; left: -5px; }
+.bh--br { bottom: -5px; right: -5px; }
+
+.hero-btn:hover .btn-handle { opacity: 1; }
+
+.hero-btn-label {
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 /* Dot-led text links (Explore / Book a call) */
@@ -577,11 +1082,11 @@ a:focus-visible, button:focus-visible {
 }
 
 .detail-title {
-  font-family: var(--font-display);
-  font-weight: 900;
+  font-family: var(--font-pixel);
+  font-weight: 400;
   font-size: 85px;
   line-height: 1;
-  letter-spacing: -0.05em;
+  letter-spacing: 0;
   text-align: end;
   margin: 0;
 }
@@ -915,16 +1420,20 @@ a:focus-visible, button:focus-visible {
   to { transform: scale(1); }
 }
 
-/* Smooth trailing cursor dot (fine pointers only; created by JS) */
+/* Smooth trailing cursor dot (fine pointers only; created by JS).
+   The dot is a solid octagon site-wide, drawn on ::before so the shape
+   never clips the label/pill children. */
 .cursor-dot {
   position: fixed;
   left: 0;
   top: 0;
   z-index: 100;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #fff;
+  width: 15px;
+  height: 15px;
+  /* Marquee size, shared by the rect and the YOU corner math below. */
+  --sel-w: min(340px, 70vw);
+  --sel-h: min(350px, 70vh);
+  background: transparent;
   mix-blend-mode: difference;
   pointer-events: none;
   opacity: 0;
@@ -934,13 +1443,29 @@ a:focus-visible, button:focus-visible {
   gap: 6px;
   overflow: hidden;
   white-space: nowrap;
-  transition: opacity 0.2s ease, width 0.25s ease, height 0.25s ease, padding 0.25s ease, border-radius 0.25s ease, background-color 0.25s ease;
+  /* Width/height change discretely on state switches (morphing to auto
+     never animated anyway); keeping them in `transition` only risks a
+     half-morphed cursor if frames stall. */
+  transition: opacity 0.2s ease, padding 0.25s ease, border-radius 0.25s ease, background-color 0.25s ease;
 }
+
+.cursor-dot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  clip-path: polygon(29.3% 0%, 70.7% 0%, 100% 29.3%, 100% 70.7%, 70.7% 100%, 29.3% 100%, 0% 70.7%, 0% 29.3%);
+  transition: opacity 0.18s ease, transform 0.22s ease;
+}
+
+/* The View pill repaints the box itself — hide the octagon inside it. */
+.cursor-dot.view::before { content: none; }
 
 .cursor-dot.on { opacity: 1; }
 
 .cursor-dot .cursor-label,
-.cursor-dot .cursor-arrow {
+.cursor-dot .cursor-arrow,
+.cursor-dot .cursor-you {
   max-width: 0;
   opacity: 0;
   flex: none;
@@ -972,8 +1497,97 @@ a:focus-visible, button:focus-visible {
 
 .cursor-dot.view .cursor-arrow { color: #000; }
 
+/* YOU tag — rides the same cursor while it is over the hero collage.
+   Shape copied from the reference crop: the tag's sharp top-left corner
+   faces the dot across a small gap. The octagon itself now lives on the
+   base ::before (site-wide), so this state only unclips the pill. */
+.cursor-dot.you {
+  overflow: visible;
+}
+
+.cursor-dot.you .cursor-you,
+.cursor-dot.select .cursor-you {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 30px;
+  max-width: 80px;
+  opacity: 1;
+  padding: 0;
+  border-radius: 0 999px 999px 999px;
+  background: #fff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: #000;
+  /* The tag glides between its dot dock and the marquee corner. */
+  transition: left 0.25s ease, top 0.25s ease, transform 0.25s ease, opacity 0.2s ease, max-width 0.25s ease;
+}
+
+.cursor-dot.you .cursor-you {
+  left: calc(100% + 3px);
+  top: calc(100% + 3px);
+}
+
+/* Selection marquee — over the name box the cursor itself becomes the
+   design-tool selection: a difference-blend rect (white, so it inverts
+   the name to black-on-white, the cyan frame to red, the tapes to
+   maroon/navy — exactly the reference look) with handles, the YOU tag
+   re-docked to its bottom-right corner. The rect is centred on the
+   pointer and scales up from dot size, so it reads as the dot
+   transforming rather than fading in beside it. */
+.cursor-select {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--sel-w);
+  height: var(--sel-h);
+  background: #fff;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.045);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.cursor-dot.select { overflow: visible; }
+
+.cursor-dot.select::before {
+  opacity: 0;
+  transform: scale(0.3);
+}
+
+.cursor-dot.select .cursor-select {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.cursor-dot.select .cursor-you {
+  left: calc(50% + (var(--sel-w) / 2) + 6px);
+  top: calc(50% + (var(--sel-h) / 2) + 4px);
+  transform: none;
+}
+
+.sh {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+}
+
+.sh--tl { top: -7px; left: -7px; }
+.sh--tr { top: -7px; right: -7px; }
+.sh--bl { bottom: -7px; left: -7px; }
+.sh--br { bottom: -7px; right: -7px; }
+
 @media (pointer: fine) {
   .card, .card *, .contact-row, .contact-row * { cursor: none; }
+  /* The marquee replaces the pointer over the name — same treatment. */
+  .hero-name-box, .hero-name-box * { cursor: none; }
 }
 
 /* Page wipe transitions */
@@ -1026,13 +1640,28 @@ a:focus-visible, button:focus-visible {
 /* Tablet: 810–1199px */
 @media (min-width: 810px) and (max-width: 1199.98px) {
   .section { padding: 72px 0; }
-  .hero-statement { font-size: 32px; }
+  .hero--stage { min-height: 100svh; padding: 88px 0 48px; }
+  .hero-grid { background-size: 80px 80px; }
+  .hero-clock { margin-bottom: min(110px, 13vh); }
+  .hero-scribble { font-size: 30px; }
+  .hero-intro { min-height: 52px; }
+  .hero-tapes { gap: 24px; }
+  .tape { padding: 11px 18px; font-size: 14px; }
+  .hero-name-box { padding: 12px 20px; }
+  .hero-name { font-size: clamp(30px, min(7.4vw, 12vh), 96px); }
+  .hero-avail { font-size: 12px; }
+  .avatar-pin { width: 58px; height: 58px; }
+  .avatar-pin--a { top: 44%; }
+  .avatar-pin--b { top: 60%; }
+  .chip { padding: 13px 20px; font-size: 13px; }
+  .chip--role { top: 87%; left: 2%; }
+  .chip--loc { top: 67%; right: 14%; }
+  .hero-cta { margin-top: min(150px, 16vh); }
+  .hero-tagline { margin-bottom: 30px; }
   .hero-year { font-size: 120px; }
   .detail-tagline { font-size: 32px; }
   .detail-title { font-size: 72px; }
   .work .detail-title { margin-bottom: 64px; }
-  .hero-portrait { width: 350px; height: 450px; margin-right: 60px; }
-  .hero-bottom { height: auto; }
   .display-h2 { font-size: 48px; }
   .lede { font-size: 18px; }
   .section-intro { padding-left: 80px; max-width: 762px; }
@@ -1047,20 +1676,63 @@ a:focus-visible, button:focus-visible {
   .footer-media { width: 100%; height: 200px; }
 }
 
+/* Short screens: compress hero padding so the ref rhythm still fits 100vh.
+   Placed before the mobile block so stacked mobile layout stays exempt. */
+@media (max-height: 900px) {
+  .hero--stage { padding: 56px 0 36px; }
+}
+
+@media (max-height: 800px) {
+  .hero--stage { padding: 48px 0 28px; }
+}
+
 /* Mobile: ≤809px */
 @media (max-width: 809.98px) {
   .section { padding: 64px 0; }
   .site-header { display: none; }
   .mobile-header { display: flex; }
   .hero { padding: 96px 0 64px; }
-  .hero-statement { font-size: 24px; margin-bottom: 48px; max-width: 100%; letter-spacing: normal; }
+  /* Stacked content is taller than a phone screen, so drop the hard fit. */
+  .hero--stage { display: block; min-height: 0; padding: 88px 0 72px; }
+  .hero-grid { background-size: 60px 60px; }
+  .hero-stage { padding: 0 20px; }
+  .hero-clock { margin-bottom: 52px; }
+  .hero-intro { min-height: 0; gap: 20px; }
+  .hero-scribble { font-size: 30px; }
+  .scribble-underline { width: 92px; height: 11px; }
+  .hero-tapes { flex-direction: column; align-items: center; gap: 14px; margin: 24px 0 0; }
+  .tape { padding: 11px 18px; font-size: 13px; white-space: normal; text-align: center; }
+  .tape, .chip, .avatar-pin { animation: none; }
+  .hero-name-box { padding: 12px 18px; }
+  .hero-name { font-size: clamp(24px, 11vw, 44px); letter-spacing: 0.03em; transform: translate(0.015em, 0.058em); }
+  .sel-handle { width: 11px; height: 11px; border-width: 1.5px; }
+  .sel-handle--tl, .sel-handle--tr { top: -6px; }
+  .sel-handle--bl, .sel-handle--br { bottom: -6px; }
+  .sel-handle--tl, .sel-handle--bl { left: -6px; }
+  .sel-handle--tr, .sel-handle--br { right: -6px; }
+  .hero-avail { margin-top: 24px; font-size: 11px; letter-spacing: 0.08em; }
+  .hero-scatter {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin: 44px 0 0;
+  }
+  .avatar-pin { display: none; }
+  .chip { position: static; padding: 13px 18px; font-size: 12px; }
+  .chip--role { transform: rotate(-3deg); }
+  .chip--loc { transform: rotate(3deg); }
+  .chip-cursor { display: none; }
+  .hero-cta { margin-top: 56px; }
+  .hero-tagline { margin-bottom: 32px; }
+  .hero-tagline-break { display: none; }
+  .hero-btn { gap: 12px; padding: 6px 18px 6px 6px; }
   .detail-tagline { font-size: 24px; margin-bottom: 48px; margin-top: 48px; max-width: 100%; }
-  .hero-bottom { flex-direction: column; align-items: stretch; height: auto; }
   .hero-year { font-size: 80px; text-align: end; margin-bottom: 48px; }
   .detail-title { font-size: 52px; }
   .work .detail-title { margin-bottom: 48px; }
-  .hero-portrait { width: 100%; height: 500px; margin-right: 0; }
-  .display-h2 { font-size: 36px; letter-spacing: -0.05em; }
+  .display-h2 { font-size: 36px; letter-spacing: 0; }
   .lede { font-size: 16px; max-width: 100%; }
   .section-intro { padding-left: 0; max-width: 100%; }
   .section-intro .lede { padding-left: 0; }
@@ -1086,12 +1758,334 @@ a:focus-visible, button:focus-visible {
   .footer-socials { order: -1; }
 }
 
+/* --------------------------------------------------------------------------
+   About page — dark playground: selection frames, sticker cards, timeline
+   -------------------------------------------------------------------------- */
+.ab-hero { padding: 140px 0 32px; }
+
+.ab-title {
+  margin: 0;
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  font-size: clamp(56px, 11vw, 160px);
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.ab-kicker {
+  margin: 20px 0 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Selection frames */
+.ab-frame {
+  --frame: var(--hero-cyan);
+  position: relative;
+  border: 2px solid var(--frame);
+  border-radius: 4px;
+  padding: 56px 48px 48px;
+}
+
+.ab-frame--beige { --frame: #f2dfa6; }
+.ab-frame--pink { --frame: #e8395e; }
+.ab-frame--cyan { --frame: var(--hero-cyan); }
+
+.ab-handle {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  background: var(--frame);
+  border: 2px solid #000;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.ab-handle--tl { top: -7px; left: -7px; }
+.ab-handle--tr { top: -7px; right: -7px; }
+.ab-handle--bl { bottom: -7px; left: -7px; }
+.ab-handle--br { bottom: -7px; right: -7px; }
+
+.ab-tag {
+  position: absolute;
+  top: -13px;
+  left: 32px;
+  margin: 0;
+  padding: 5px 14px;
+  background: var(--frame);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ab-bio, .ab-values, .ab-timeline { scroll-margin-top: 80px; }
+
+/* Bio */
+.ab-bio-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 56px;
+  align-items: start;
+}
+
+.ab-bio-head {
+  margin: 0 0 28px;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.ab-bio-copy p {
+  margin: 0 0 20px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.ab-sign {
+  margin: 28px 0 0 !important;
+  font-family: var(--font-hand) !important;
+  font-size: 34px !important;
+  font-weight: 600 !important;
+}
+
+.ab-photo { margin: 0; transform: rotate(2deg); }
+
+.ab-photo img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #141414;
+}
+
+.ab-photo figcaption {
+  margin-top: 10px;
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.ab-note {
+  position: absolute;
+  font-family: var(--font-hand);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--text);
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+.ab-note--a { top: 24px; right: 120px; transform: rotate(-6deg); }
+.ab-note--b { bottom: 64px; left: 40%; transform: rotate(3deg); }
+.ab-note--c { top: 30px; right: 90px; transform: rotate(5deg); }
+
+/* Values cards */
+.ab-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.ab-card {
+  position: relative;
+  padding: 28px 28px 56px;
+  border-radius: 4px;
+  color: #0b0b0b;
+}
+
+.ab-card--blue { background: #a9d3f2; }
+.ab-card--yellow { background: #ffc42e; }
+.ab-card--mint { background: #a8ddb8; }
+.ab-card--pink { background: #f2a0b5; }
+
+.ab-card h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.ab-card p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.ab-card-note {
+  position: absolute;
+  right: 20px;
+  bottom: 14px;
+  font-family: var(--font-hand);
+  font-size: 20px;
+  font-weight: 700;
+  transform: rotate(-3deg);
+}
+
+.ab-pill { margin: 36px 0 0; text-align: center; }
+
+.ab-pill span {
+  display: inline-block;
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: #e8395e;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.ab-pill--right { text-align: right; }
+.ab-pill--right span { transform: rotate(2deg); }
+
+/* Timeline */
+.ab-tl {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.ab-tl li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.ab-tl-mark {
+  width: 16px;
+  height: 16px;
+  margin-top: 6px;
+  border-radius: 4px;
+  flex: none;
+}
+
+.ab-tl-mark--yellow { background: #ffc42e; }
+.ab-tl-mark--mint { background: #a8ddb8; }
+.ab-tl-mark--blue { background: #a9d3f2; }
+.ab-tl-mark--pink { background: #e8395e; }
+
+.ab-tl h3 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.ab-tl p { margin: 0 0 14px; font-size: 15px; line-height: 1.6; color: var(--muted); }
+
+.ab-date {
+  display: inline-block;
+  margin: 0;
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  color: var(--text) !important;
+}
+
+.ab-date--live {
+  border-color: var(--hero-cyan);
+  background: var(--hero-cyan);
+  color: #000 !important;
+}
+
+/* Talk CTA */
+.ab-talk-title {
+  margin: 0 0 24px;
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  font-size: clamp(44px, 9vw, 120px);
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.ab-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 640px;
+  margin: 48px auto 0;
+  padding: 44px 32px;
+  border-radius: 8px;
+  background:
+    repeating-linear-gradient(-55deg, rgba(0, 0, 0, 0.14) 0 26px, transparent 26px 72px),
+    #ffc42e;
+  color: #000;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ab-banner:hover { transform: translateY(-4px); }
+
+.ab-banner-text {
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  font-size: clamp(34px, 6vw, 64px);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.ab-banner-arrow { flex: none; }
+
+/* About responsive */
+@media (max-width: 1199.98px) {
+  .ab-note { display: none; }
+  .ab-bio-grid { grid-template-columns: 1fr 260px; gap: 40px; }
+  .ab-frame { padding: 48px 36px 40px; }
+}
+
+@media (max-width: 809.98px) {
+  .ab-hero { padding: 120px 0 16px; }
+  .ab-bio-grid { grid-template-columns: 1fr; }
+  .ab-photo { max-width: 300px; }
+  .ab-cards { grid-template-columns: 1fr; }
+  .ab-frame { padding: 44px 24px 32px; }
+  .ab-tag { left: 20px; }
+  .ab-pill--right { text-align: center; }
+  .ab-pill--right span { transform: rotate(-2deg); }
+  .ab-banner { padding: 36px 24px; }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .wipe { display: none; }
   .row-preview { display: none; }
   .cursor-dot { display: none; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .chip, .avatar-pin, .hero-avail-dot { animation: none; }
+  .hero-btn, .hero-btn-icon, .hero-btn-icon::before, .hero-btn-icon::after, .btn-handle, .ab-banner, .contact-btn { transition: none; }
   .dot-link::before { transition: none; }
   .nav-link, .mobile-menu nav a { transition: none; }
   .marquee-track { animation: none; }

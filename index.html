@@ -27,17 +27,21 @@
   <header class="site-header" data-reveal="header">
     <div class="header-inner">
       <div class="brand-block">
-        <a class="logo" href="./" aria-current="page">ABHISHEK</a>
+        <a class="logo-mark" href="./" aria-current="page">ABHISHEK</a>
         <span class="separator" aria-hidden="true"></span>
         <nav class="main-nav" aria-label="Primary">
-          <a class="nav-link is-current" href="./" aria-current="page">Home</a>
-          <a class="nav-link" href="./work.html">Work</a>
-          <a class="nav-link" href="./contact.html">Contact</a>
+          <a class="nav-link is-current" href="./" aria-current="page"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 11l8-7 8 7M6.5 9.5V20h11V9.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Home</a>
+          <a class="nav-link" href="./work.html"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 8.5h16V19H4zM9 8.5V6h6v2.5M4 12.5h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Work</a>
+          <a class="nav-link" href="./about.html"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M12 4v16M5.5 8.2l13 7.6M18.5 8.2l-13 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>About</a>
+          <a class="nav-link" href="./contact.html"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 6.5h16v11H4zM4.5 7.5l7.5 5.5 7.5-5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Contact</a>
         </nav>
       </div>
-      <div class="available">
-        <span class="pulse-dot" aria-hidden="true"><span></span></span>
-        <span class="available-text">Available for work</span>
+      <div class="header-right">
+        <div class="available">
+          <span class="pulse-dot" aria-hidden="true"><span></span></span>
+          <span class="available-text">Available for work</span>
+        </div>
+        <a class="contact-btn" href="./contact.html"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" focusable="false"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg>Contact</a>
       </div>
     </div>
   </header>
@@ -56,6 +60,7 @@
     <nav aria-label="Mobile">
       <a href="./">Home</a>
       <a href="./work.html">Work</a>
+      <a href="./about.html">About</a>
       <a href="./contact.html">Contact</a>
     </nav>
     <p class="mobile-availability">Available for work</p>
@@ -63,14 +68,55 @@
 
   <main id="top">
     <!-- Hero -->
-    <section class="section hero" aria-label="Intro">
-      <div class="wrap" data-reveal>
-        <p class="hero-statement">I’m Abhishek, a web developer crafting fast, responsive websites through clean code, thoughtful layouts, and clear visual thinking.</p>
-        <div class="hero-bottom">
-          <p class="hero-year">/26</p>
-          <div class="hero-portrait">
-            <img src="img.webp" width="400" height="500" alt="Abhishek Roshan">
+    <section class="section hero hero--stage" aria-label="Intro">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-stage" data-reveal>
+        <p class="hero-clock"><span id="hero-time">--:--:--</span></p>
+
+        <div class="hero-core">
+          <div class="hero-head">
+          <div class="hero-intro">
+            <p class="hero-scribble">
+                <span>my name is</span>
+                <svg class="scribble-underline" viewBox="0 0 120 14" width="120" height="14" aria-hidden="true" focusable="false"><path d="M2 8C24 2 52 3 74 7c16 3 30 2 44-3" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M6 12c24-6 54-5 78-2 14 2 24 1 32-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </p>
+            </div>
+
+            <div class="hero-tapes">
+              <span class="tape tape--mint">Currently freelance</span>
+              <span class="tape tape--beige">Previously at inA</span>
+            </div>
+
+            <div class="hero-name-box">
+              <h1 class="hero-name">Abhishek</h1>
+              <span class="sel-handle sel-handle--tl" aria-hidden="true"></span>
+              <span class="sel-handle sel-handle--tr" aria-hidden="true"></span>
+              <span class="sel-handle sel-handle--bl" aria-hidden="true"></span>
+              <span class="sel-handle sel-handle--br" aria-hidden="true"></span>
+            </div>
           </div>
+
+          <p class="hero-avail"><span class="hero-avail-dot" aria-hidden="true"></span>Available for thoughtful projects</p>
+        </div>
+
+        <div class="hero-scatter">
+          <span class="avatar-pin avatar-pin--a"><img src="img.webp" width="72" height="72" alt="Abhishek Roshan" loading="lazy"></span>
+          <span class="avatar-pin avatar-pin--b"><img src="img.webp" width="72" height="72" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="chip chip--role">Web Developer<svg class="chip-cursor" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M5 3v15l4-4 3 6 3-1.6-3-6H18z" fill="currentColor"/></svg></span>
+          <span class="chip chip--loc">India<svg class="chip-cursor" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M5 3v15l4-4 3 6 3-1.6-3-6H18z" fill="currentColor"/></svg></span>
+        </div>
+
+        <div class="hero-cta">
+          <h2 class="hero-tagline">I build
+            <svg class="tagline-target" viewBox="0 0 34 34" width="30" height="30" aria-hidden="true" focusable="false"><circle cx="17" cy="17" r="14.5" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="17" cy="17" r="8.5" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="17" cy="17" r="3.5" fill="currentColor"/></svg>
+            fast, responsive<br class="hero-tagline-break"> websites
+            <span class="tagline-end"><svg class="tagline-flower" viewBox="0 0 30 30" width="28" height="28" aria-hidden="true" focusable="false"><g fill="currentColor"><circle cx="15" cy="7" r="6.2"/><circle cx="15" cy="23" r="6.2"/><circle cx="7" cy="15" r="6.2"/><circle cx="23" cy="15" r="6.2"/><circle cx="15" cy="15" r="4.2"/></g></svg>.</span>
+          </h2>
+          <a class="hero-btn" href="./contact.html">
+            <span class="hero-btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M4 7l5 5-5 5M11 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="hero-btn-label">Contact me</span>
+            <span class="btn-handle bh--tl" aria-hidden="true"></span><span class="btn-handle bh--tr" aria-hidden="true"></span><span class="btn-handle bh--bl" aria-hidden="true"></span><span class="btn-handle bh--br" aria-hidden="true"></span>
+          </a>
         </div>
       </div>
     </section>
