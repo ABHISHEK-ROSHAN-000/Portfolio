@@ -46,15 +46,18 @@
   font-display: swap;
 }
 
-/* Yumiko — Framer template replica. Tokens and layout from the original spec. */
+/* Nudge light — warm paper, ink text. Sticker brights stay punchy on cream. */
 :root {
-  --bg: #000;
-  --text: #fff;
-  --muted: #ccc;
-  --border: #737373;
-  --green: rgb(60, 255, 0);
-  --green-glow: rgba(119, 255, 0, 0.5);
-  --hero-cyan: #4cc9f0;
+  --bg: #f6f1e7;
+  --paper: #f6f1e7;
+  --card: #fdfaf3;
+  --text: #131311;
+  --muted: #6f675a;
+  --border: #d9cfba;
+  --border-strong: #131311;
+  --green: #0d9b00;
+  --green-glow: rgba(13, 155, 0, 0.35);
+  --hero-cyan: #2fb9e8;
   --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-display: "BDO Grotesk", "Archivo", "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-pixel: "Flux", "BDO Grotesk", "Archivo", Impact, sans-serif;
@@ -95,14 +98,14 @@ img {
 
 a { color: inherit; }
 
-::selection { background: #fff; color: #000; }
+::selection { background: #131311; color: #f6f1e7; }
 
 a:focus-visible, button:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid #131311;
   outline-offset: 2px;
 }
 
-/* Film grain overlay — full viewport, behind content, above black bg */
+/* Film grain overlay — full viewport, behind content, above paper bg */
 .grain {
   position: absolute;
   inset: 0;
@@ -111,7 +114,7 @@ a:focus-visible, button:focus-visible {
   background-image: var(--grain);
   background-repeat: repeat;
   background-size: 128px auto;
-  opacity: 0.15;
+  opacity: 0.09;
 }
 
 /* Layout */
@@ -189,8 +192,10 @@ a:focus-visible, button:focus-visible {
   left: 0;
   right: 0;
   z-index: 50;
-  background: #000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(246, 241, 231, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(19, 19, 17, 0.14);
 }
 
 .header-inner {
@@ -261,12 +266,12 @@ a:focus-visible, button:focus-visible {
 
 .nav-link svg { flex: none; }
 
-.nav-link:hover { background: #fff; color: #000; }
+.nav-link:hover { background: #131311; color: #f6f1e7; }
 
 .nav-link[aria-current="page"],
 .nav-link[aria-current="page"]:hover {
   background: var(--hero-cyan);
-  color: #000;
+  color: #131311;
 }
 
 .header-right {
@@ -281,7 +286,7 @@ a:focus-visible, button:focus-visible {
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
-  border: 1px solid #fff;
+  border: 1px solid #131311;
   border-radius: 3px;
   background: transparent;
   color: var(--text);
@@ -297,7 +302,7 @@ a:focus-visible, button:focus-visible {
 
 .contact-btn svg { flex: none; }
 
-.contact-btn:hover { background: #fff; color: #000; }
+.contact-btn:hover { background: #131311; color: #f6f1e7; }
 
 /* Tablet-narrow: availability pill would crowd the toolbar — it also
    lives in the mobile menu and the hero, so hide it here. */
@@ -386,7 +391,7 @@ a:focus-visible, button:focus-visible {
   display: block;
   height: 2px;
   border-radius: 2px;
-  background: #fff;
+  background: #131311;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -402,7 +407,7 @@ a:focus-visible, button:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 24px;
-  background: #000;
+  background: #f6f1e7;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -426,11 +431,12 @@ a:focus-visible, button:focus-visible {
   text-decoration: none;
   padding: 2px 8px;
   border-radius: 4px;
-  background: linear-gradient(#fff, #fff) left center / 0% 100% no-repeat;
+  color: #131311;
+  background: linear-gradient(#131311, #131311) left center / 0% 100% no-repeat;
   transition: background-size 0.6s ease, color 0.2s ease;
 }
 
-.mobile-menu nav a:hover { color: #000; background-size: 100% 100%; }
+.mobile-menu nav a:hover { color: #f6f1e7; background-size: 100% 100%; }
 
 .mobile-availability {
   color: var(--muted);
@@ -475,8 +481,8 @@ a:focus-visible, button:focus-visible {
   z-index: -1;
   pointer-events: none;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(19, 19, 17, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(19, 19, 17, 0.09) 1px, transparent 1px);
   background-size: 100px 100px;
   -webkit-mask-image: radial-gradient(120% 88% at 50% 28%, #000 0%, rgba(0, 0, 0, 0.3) 58%, transparent 100%);
   mask-image: radial-gradient(120% 88% at 50% 28%, #000 0%, rgba(0, 0, 0, 0.3) 58%, transparent 100%);
@@ -585,8 +591,9 @@ a:focus-visible, button:focus-visible {
   font-size: 16px;
   font-weight: 600;
   line-height: 1.1;
-  color: #0b0b0b;
+  color: #131311;
   white-space: nowrap;
+  border: 1.5px solid #131311;
   /* No shadow — tapes sit flat above the name box per the reference. */
   /* Static by design — the tilt is the resting pose, no drift. */
   transform: rotate(var(--rot, 0deg));
@@ -602,6 +609,7 @@ a:focus-visible, button:focus-visible {
   max-width: 100%;
   padding: 16px 28px;
   border: 2px solid var(--hero-cyan);
+  background: #fdfaf3;
 }
 
 .hero-name {
@@ -631,8 +639,8 @@ a:focus-visible, button:focus-visible {
   width: 13px;
   height: 13px;
   background: var(--hero-cyan);
-  border: 2px solid #000;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+  border: 2px solid #131311;
+  box-shadow: 0 0 0 1px rgba(246, 241, 231, 0.9);
 }
 
 .sel-handle--tl { top: -7px; left: -7px; }
@@ -677,6 +685,7 @@ a:focus-visible, button:focus-visible {
   padding: 6px;
   border-radius: 50% 50% 50% 12px;
   background: var(--hero-cyan);
+  border: 1.5px solid #131311;
   transform: rotate(var(--rot, 0deg));
   animation: hero-drift 9s ease-in-out infinite alternate;
 }
@@ -703,7 +712,8 @@ a:focus-visible, button:focus-visible {
   font-weight: 600;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.5);
+  border: 1.5px solid #131311;
+  box-shadow: 0 8px 0 rgba(19, 19, 17, 0.16);
   transform: rotate(var(--rot, 0deg));
   animation: hero-drift 8.5s ease-in-out infinite alternate;
 }
@@ -711,7 +721,7 @@ a:focus-visible, button:focus-visible {
 .chip--role {
   top: 88%;
   left: 3%;
-  color: #0b0b0b;
+  color: #131311;
   background: #ffc42e;
   --rot: -12deg;
   --rot2: -9.5deg;
@@ -722,7 +732,7 @@ a:focus-visible, button:focus-visible {
 .chip--loc {
   top: 68%;
   right: 22%;
-  color: #fff;
+  color: #fdfaf3;
   background: #e8395e;
   --rot: 12deg;
   --rot2: 9.5deg;
@@ -730,8 +740,7 @@ a:focus-visible, button:focus-visible {
   --dy0: 6px;
 }
 
-/* The chip arrows sit on the black background, so a black arrow (inherited
-   from the yellow chip) would vanish — recolour per chip instead. */
+/* The chip arrows sit on the paper background — recolour per chip. */
 .chip-cursor {
   position: absolute;
   top: -12px;
@@ -745,7 +754,7 @@ a:focus-visible, button:focus-visible {
   right: auto;
   top: -10px;
   left: -22px;
-  color: #ffb3c6;
+  color: #e8395e;
   transform: rotate(72deg);
 }
 
@@ -794,8 +803,8 @@ a:focus-visible, button:focus-visible {
   gap: 14px;
   padding: 6px 22px 6px 6px;
   border-radius: 3px;
-  background: #fff;
-  color: #000;
+  background: #131311;
+  color: #f6f1e7;
   text-decoration: none;
   font-family: var(--font-mono);
   font-size: 12px;
@@ -805,12 +814,12 @@ a:focus-visible, button:focus-visible {
   transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.2s ease;
 }
 
-/* Hover: black slab, white 2px ring that grows in (name-box language).
+/* Hover: paper slab, ink 2px ring that grows in (name-box language).
    Inset shadow never touches layout or content — only the border scales. */
 .hero-btn:hover {
-  background: #000;
-  color: #fff;
-  box-shadow: inset 0 0 0 2px #fff;
+  background: #fdfaf3;
+  color: #131311;
+  box-shadow: inset 0 0 0 2px #131311;
 }
 
 .hero-btn-icon {
@@ -822,7 +831,7 @@ a:focus-visible, button:focus-visible {
   flex: none;
   border-radius: 9px;
   background: var(--hero-cyan);
-  color: #000;
+  color: #131311;
   transition: background-color 0.25s ease;
 }
 
@@ -865,6 +874,7 @@ a:focus-visible, button:focus-visible {
   width: 10px;
   height: 10px;
   background: var(--hero-cyan);
+  border: 1px solid #131311;
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none;
@@ -897,7 +907,7 @@ a:focus-visible, button:focus-visible {
   padding: 2px 4px;
   border-radius: 2px;
   background: transparent;
-  color: #fff;
+  color: #131311;
   transition: color 0.2s ease;
 }
 
@@ -906,7 +916,7 @@ a:focus-visible, button:focus-visible {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: #fff;
+  background: #131311;
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.6s ease;
@@ -922,13 +932,13 @@ a:focus-visible, button:focus-visible {
   height: 8px;
   flex: none;
   border-radius: 50%;
-  background: #fff;
+  background: #131311;
   transition: background 0.2s ease;
 }
 
-.dot-link:hover { color: #000; }
+.dot-link:hover { color: #f6f1e7; }
 .dot-link:hover::before { transform: scaleX(1); }
-.dot-link:hover .dot-solid { background: #000; }
+.dot-link:hover .dot-solid { background: #f6f1e7; }
 
 /* Work section */
 .switch {
@@ -951,8 +961,8 @@ a:focus-visible, button:focus-visible {
   transition: color 0.25s ease;
 }
 
-.switch-option:hover { color: #fff; }
-.switch-option.is-active { color: #fff; }
+.switch-option:hover { color: #131311; }
+.switch-option.is-active { color: #131311; }
 .switch-divider { color: var(--muted); }
 
 /* Work list */
@@ -966,7 +976,7 @@ a:focus-visible, button:focus-visible {
   justify-content: space-between;
   gap: 0;
   padding: 6px 240px 6px 8px;
-  background: #000;
+  background: transparent;
   border-bottom: 1px solid var(--border);
   text-decoration: none;
   position: relative;
@@ -981,7 +991,7 @@ a:focus-visible, button:focus-visible {
   inset: 0;
   background-image: var(--grain);
   background-size: 128px auto;
-  opacity: 0.15;
+  opacity: 0.08;
   pointer-events: none;
 }
 
@@ -1009,10 +1019,10 @@ a:focus-visible, button:focus-visible {
   transition: color 0.2s ease, transform 0.3s ease;
 }
 
-.work-row:hover { background: #fff; }
-.work-row:hover .work-title { color: #000; }
-.work-row:hover .work-cat { color: #000; }
-.work-row:hover .row-arrow { color: #000; transform: translate(3px, -3px); }
+.work-row:hover { background: #131311; }
+.work-row:hover .work-title { color: #f6f1e7; }
+.work-row:hover .work-cat { color: #f6f1e7; }
+.work-row:hover .row-arrow { color: #f6f1e7; transform: translate(3px, -3px); }
 
 /* Work grid */
 .work-grid {
@@ -1031,8 +1041,10 @@ a:focus-visible, button:focus-visible {
   display: block;
   position: relative;
   overflow: hidden;
-  background: #111;
+  background: #e6dcc4;
+  border: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  border-radius: 6px 6px 0 0;
 }
 
 .card-media::after {
@@ -1041,7 +1053,7 @@ a:focus-visible, button:focus-visible {
   inset: 0;
   background-image: var(--grain);
   background-size: 128px auto;
-  opacity: 0.15;
+  opacity: 0.08;
   pointer-events: none;
 }
 
@@ -1057,7 +1069,10 @@ a:focus-visible, button:focus-visible {
   justify-content: space-between;
   gap: 24px;
   padding: 8px;
-  background: #000;
+  background: #fdfaf3;
+  border: 1px solid var(--border);
+  border-top: 0;
+  border-radius: 0 0 6px 6px;
   transition: background 0.4s ease;
 }
 
@@ -1072,9 +1087,9 @@ a:focus-visible, button:focus-visible {
   line-height: 1.2;
 }
 
-.card:hover .card-meta { background: #fff; }
-.card:hover .card-meta .work-title { color: #000; }
-.card:hover .card-meta .work-cat { color: #000; }
+.card:hover .card-meta { background: #131311; border-color: #131311; }
+.card:hover .card-meta .work-title { color: #f6f1e7; }
+.card:hover .card-meta .work-cat { color: #f6f1e7; }
 
 .card-meta .work-cat { margin-right: 0; }
 
@@ -1160,7 +1175,8 @@ a:focus-visible, button:focus-visible {
   aspect-ratio: 4 / 3;
   border-radius: 4px;
   overflow: hidden;
-  background: #111;
+  background: #e6dcc4;
+  border: 1px solid var(--border);
 }
 
 .g-item img {
@@ -1280,7 +1296,7 @@ a:focus-visible, button:focus-visible {
   justify-content: flex-end;
   gap: 4px;
   padding: 6px 240px 6px 8px;
-  background: #000;
+  background: transparent;
   border-bottom: 1px solid var(--border);
   text-decoration: none;
   font-weight: 500;
@@ -1295,7 +1311,7 @@ a:focus-visible, button:focus-visible {
   inset: 0;
   background-image: var(--grain);
   background-size: 128px auto;
-  opacity: 0.15;
+  opacity: 0.08;
   pointer-events: none;
 }
 
@@ -1312,8 +1328,8 @@ a:focus-visible, button:focus-visible {
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.contact-row:hover { background: #fff; color: #000; }
-.contact-row:hover .arrow { transform: translate(3px, -3px); color: #000; }
+.contact-row:hover { background: #131311; color: #f6f1e7; }
+.contact-row:hover .arrow { transform: translate(3px, -3px); color: #f6f1e7; }
 
 /* Footer */
 .footer .lede--center { margin-bottom: 24px; }
@@ -1341,7 +1357,8 @@ a:focus-visible, button:focus-visible {
   flex: none;
   border-radius: 4px;
   overflow: hidden;
-  background: #111;
+  background: #e6dcc4;
+  border: 1px solid var(--border);
 }
 
 .gallery-card img {
@@ -1385,7 +1402,7 @@ a:focus-visible, button:focus-visible {
   width: 4px;
   height: 4px;
   border-radius: 1000px;
-  background: #fff;
+  background: #131311;
 }
 
 .clock {
@@ -1465,6 +1482,7 @@ a:focus-visible, button:focus-visible {
   background: #fff;
   clip-path: polygon(29.3% 0%, 70.7% 0%, 100% 29.3%, 100% 70.7%, 70.7% 100%, 29.3% 100%, 0% 70.7%, 0% 29.3%);
   transition: opacity 0.18s ease, transform 0.22s ease;
+  filter: drop-shadow(0 1px 2px rgba(19, 19, 17, 0.35));
 }
 
 /* The View pill repaints the box itself — hide the octagon inside it. */
@@ -1487,7 +1505,8 @@ a:focus-visible, button:focus-visible {
   height: auto;
   padding: 8px 14px;
   border-radius: 100px;
-  background: #fff;
+  background: #131311;
+  border: 1px solid #131311;
   mix-blend-mode: normal;
 }
 
@@ -1501,10 +1520,10 @@ a:focus-visible, button:focus-visible {
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
-  color: #000;
+  color: #f6f1e7;
 }
 
-.cursor-dot.view .cursor-arrow { color: #000; }
+.cursor-dot.view .cursor-arrow { color: #f6f1e7; }
 
 /* YOU tag — rides the same cursor while it is over the hero collage.
    Shape copied from the reference crop: the tag's sharp top-left corner
@@ -1526,14 +1545,15 @@ a:focus-visible, button:focus-visible {
   opacity: 1;
   padding: 0;
   border-radius: 0 999px 999px 999px;
-  background: #fff;
+  background: #131311;
+  border: 1px solid #131311;
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.08em;
   white-space: nowrap;
-  color: #000;
+  color: #f6f1e7;
   /* The tag glides between its dot dock and the marquee corner. */
   transition: left 0.25s ease, top 0.25s ease, transform 0.25s ease, opacity 0.2s ease, max-width 0.25s ease;
 }
@@ -1585,7 +1605,8 @@ a:focus-visible, button:focus-visible {
   position: absolute;
   width: 14px;
   height: 14px;
-  background: #fff;
+  background: #131311;
+  border: 1px solid #f6f1e7;
 }
 
 .sh--tl { top: -7px; left: -7px; }
@@ -1604,7 +1625,7 @@ a:focus-visible, button:focus-visible {
   position: fixed;
   inset: 0;
   z-index: 80;
-  background: #000;
+  background: #f6f1e7;
   transform: translateY(0);
   pointer-events: none;
 }
@@ -1804,6 +1825,8 @@ a:focus-visible, button:focus-visible {
   border: 2px solid var(--frame);
   border-radius: 4px;
   padding: 56px 48px 48px;
+  background: #fdfaf3;
+  box-shadow: 8px 8px 0 rgba(19, 19, 17, 0.08);
 }
 
 .ab-frame--beige { --frame: #f2dfa6; }
@@ -1815,8 +1838,8 @@ a:focus-visible, button:focus-visible {
   width: 13px;
   height: 13px;
   background: var(--frame);
-  border: 2px solid #000;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+  border: 2px solid #131311;
+  box-shadow: 0 0 0 1px rgba(246, 241, 231, 0.9);
 }
 
 .ab-handle--tl { top: -7px; left: -7px; }
@@ -1831,7 +1854,7 @@ a:focus-visible, button:focus-visible {
   margin: 0;
   padding: 5px 14px;
   background: var(--frame);
-  color: #000;
+  color: #131311;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
@@ -1881,7 +1904,8 @@ a:focus-visible, button:focus-visible {
   aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: 4px;
-  background: #141414;
+  background: #e6dcc4;
+  border: 1px solid var(--border);
 }
 
 .ab-photo figcaption {
@@ -1919,7 +1943,8 @@ a:focus-visible, button:focus-visible {
   position: relative;
   padding: 28px 28px 56px;
   border-radius: 4px;
-  color: #0b0b0b;
+  color: #131311;
+  border: 1px solid rgba(19, 19, 17, 0.16);
 }
 
 .ab-card--blue { background: #a9d3f2; }
@@ -1959,14 +1984,14 @@ a:focus-visible, button:focus-visible {
   padding: 14px 26px;
   border-radius: 999px;
   background: #e8395e;
-  color: #fff;
+  color: #fdfaf3;
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   transform: rotate(-2deg);
-  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 0 rgba(19, 19, 17, 0.16);
 }
 
 .ab-pill--right { text-align: right; }
@@ -2018,6 +2043,7 @@ a:focus-visible, button:focus-visible {
   padding: 7px 14px;
   border: 1px solid var(--border);
   border-radius: 999px;
+  background: #fdfaf3;
   font-family: var(--font-mono) !important;
   font-size: 11px !important;
   font-weight: 700 !important;
@@ -2026,9 +2052,9 @@ a:focus-visible, button:focus-visible {
 }
 
 .ab-date--live {
-  border-color: var(--hero-cyan);
-  background: var(--hero-cyan);
-  color: #000 !important;
+  border-color: #131311;
+  background: #131311;
+  color: #f6f1e7 !important;
 }
 
 /* Talk CTA */
@@ -2052,10 +2078,11 @@ a:focus-visible, button:focus-visible {
   margin: 48px auto 0;
   padding: 44px 32px;
   border-radius: 8px;
+  border: 2px solid #131311;
   background:
-    repeating-linear-gradient(-55deg, rgba(0, 0, 0, 0.14) 0 26px, transparent 26px 72px),
+    repeating-linear-gradient(-55deg, rgba(19, 19, 17, 0.12) 0 26px, transparent 26px 72px),
     #ffc42e;
-  color: #000;
+  color: #131311;
   text-decoration: none;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
