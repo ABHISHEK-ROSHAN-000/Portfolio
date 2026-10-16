@@ -1,7 +1,7 @@
 /* BDO Grotesk — self-hosted variable font (weights 100–900). */
 @font-face {
   font-family: "BDO Grotesk";
-  src: url("./fonts/BDOGrotesk-VF.ttf") format("truetype-variations");
+  src: url("./fonts/BDOGrotesk-VF.woff2") format("woff2-variations");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -1693,19 +1693,17 @@ a:focus-visible, button:focus-visible {
 }
 
 /* Page transition — Pixel Dissolve (cyan + ink cells, random stagger).
-   JS builds a 16×10 grid inside .pix on load, covers in ink pre-JS via the
-   inline head style, then pops cells out to reveal. Exit reverses it. */
+   The veil is solid ink from first paint (inline head style) and is lifted
+   only by main.js after the stylesheet is guaranteed loaded — never by the
+   pre-paint bootstrap. Exit reverses it. */
 .pix {
   position: fixed;
   inset: 0;
   z-index: 80;
   display: grid;
   pointer-events: none;
-  visibility: hidden;
   overflow: hidden;
 }
-
-.pix.on { visibility: visible; }
 
 .pix div {
   background: #2fb9e8;

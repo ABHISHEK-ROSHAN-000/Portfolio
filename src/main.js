@@ -287,10 +287,11 @@ import { footerHTML } from "./components/footer.js";
   }
   var pixFailsafe = null;
   if (pix) {
-    /* Never snapshot or restore a covered page (bfcache Back/Forward) */
+    /* Freeze hidden: a bfcache Back/Forward restore must never show
+       a stuck mid-exit mosaic — fresh loads rebuild the veil anyway. */
     window.addEventListener("pagehide", function () {
-      pix.classList.remove("on", "pix-done");
-      pix.style.background = "";
+      pix.classList.remove("on");
+      pix.classList.add("pix-done");
     });
     if (reduceMotion) {
       pix.classList.add("pix-done");

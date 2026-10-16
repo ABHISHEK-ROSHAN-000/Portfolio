@@ -6,6 +6,10 @@ import { defineConfig } from "vite";
 export default defineConfig({
   base: "./",
   build: {
+    // Inline sub-8kB assets: the 4.4 kB Flux pixel face rides inside the
+    // render-blocking CSS (zero extra request, no hashed-preload rot).
+    // Larger fonts/images stay as files.
+    assetsInlineLimit: 8192,
     rollupOptions: {
       input: {
         main: "index.html",
