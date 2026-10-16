@@ -374,36 +374,47 @@ a:focus-visible, button:focus-visible {
   line-height: 1;
 }
 
-/* Sticker toggle: bordered chip, cyan when open. */
+/* Slim bordered toggle: "MENU ≡" closed, "CLOSE ✕" open. Paper in both. */
 .menu-toggle {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 7px;
-  width: 42px;
-  height: 42px;
-  padding: 0;
+  gap: 8px;
+  padding: 7px 12px;
   background: var(--paper);
   border: 1.5px solid #131311;
   border-radius: 3px;
   cursor: pointer;
-  transition: background-color 0.25s ease;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.menu-toggle::before { content: "Menu"; }
+
+.menu-toggle[aria-expanded="true"]::before { content: "Close"; }
+
+.menu-toggle .menu-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 .menu-toggle .bar {
   display: block;
-  width: 18px;
+  width: 15px;
   height: 2px;
   border-radius: 2px;
   background: #131311;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.menu-toggle[aria-expanded="true"] { background: var(--hero-cyan); }
-
-.menu-toggle[aria-expanded="true"] .bar-top { transform: translateY(4.5px) rotate(45deg); }
-.menu-toggle[aria-expanded="true"] .bar-bottom { transform: translateY(-4.5px) rotate(-45deg); }
+.menu-toggle[aria-expanded="true"] .bar-top { transform: translateY(3.5px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .bar-bottom { transform: translateY(-3.5px) rotate(-45deg); }
 
 /* Dropdown sheet under the header: plain paper, hairline bottom border,
    full-width left-aligned rows. The page stays visible below. */
@@ -417,7 +428,7 @@ a:focus-visible, button:focus-visible {
   flex-direction: column;
   max-height: 100svh;
   overflow-y: auto;
-  padding-top: 66px;
+  padding-top: 56px;
   background: #f6f1e7;
   border-bottom: 1px solid rgba(19, 19, 17, 0.14);
   opacity: 0;
@@ -2197,6 +2208,7 @@ a:focus-visible, button:focus-visible {
   .dot-link::before { transition: none; }
   .nav-link, .mobile-menu nav a { transition: none; }
   .mobile-menu, .mobile-menu.open .mobile-availability { transition: none; }
+  .menu-toggle .bar { transition: none; }
   .mobile-menu nav a, .mobile-availability::before { animation: none; }
   .marquee-track { animation: none; }
   .gallery-track { animation: none; }
