@@ -211,9 +211,17 @@ import { footerHTML } from "./components/footer.js";
      Cover is solid ink pre-JS (inline head style); JS swaps in the grid at
      full cover, pops cells out to reveal, and reverses on link clicks. */
   var pix = document.querySelector(".pix");
-  var PIX_COLS = 16, PIX_ROWS = 10;
-  /* Fewer cells on phones — same look, ~half the animations. */
-  if (window.innerWidth < 640) { PIX_COLS = 10; PIX_ROWS = 8; }
+  /* Desktop: 16×10. Phones (<640px): 8 columns, rows derived from the
+     viewport aspect so cells stay square on tall screens. */
+  function pixDims() {
+    if (window.innerWidth < 640) {
+      var c = 8;
+      var vw = window.innerWidth || 1;
+      var vh = window.innerHeight || 1;
+      return { c: c, r: Math.max(1, Math.round(c * vh / vw)) };
+    }
+    return { c: 16, r: 10 };
+  }
   /* Fixed-seed PRNG so every build yields the IDENTICAL mosaic on every page.
      Only the dissolve stagger stays random (motion, not layout). Must match
      the inline bootstrap script in each HTML shell. */
@@ -231,22 +239,24 @@ import { footerHTML } from "./components/footer.js";
      is rounded up to always cover the viewport; .pix clips the excess. */
   function applyPixGrid() {
     if (!pix) return;
+    var dims = pixDims();
     var dpr = window.devicePixelRatio || 1;
     var r = pix.getBoundingClientRect();
     var w = r.width || window.innerWidth;
     var h = r.height || window.innerHeight;
-    var cw = Math.ceil(w * dpr / PIX_COLS) / dpr;
-    var ch = Math.ceil(h * dpr / PIX_ROWS) / dpr;
-    pix.style.gridTemplateColumns = "repeat(" + PIX_COLS + ", " + cw + "px)";
-    pix.style.gridTemplateRows = "repeat(" + PIX_ROWS + ", " + ch + "px)";
+    var cw = Math.ceil(w * dpr / dims.c) / dpr;
+    var ch = Math.ceil(h * dpr / dims.r) / dpr;
+    pix.style.gridTemplateColumns = "repeat(" + dims.c + ", " + cw + "px)";
+    pix.style.gridTemplateRows = "repeat(" + dims.r + ", " + ch + "px)";
   }
   function buildPix() {
     if (!pix) return [];
     pix.innerHTML = "";
     applyPixGrid();
+    var dims = pixDims();
     var rand = seededRand(1337);
     var cells = [];
-    for (var i = 0; i < PIX_COLS * PIX_ROWS; i++) {
+    for (var i = 0; i < dims.c * dims.r; i++) {
       var d = document.createElement("div");
       if (rand() < 0.35) d.className = "alt";
       d.style.transform = "scale(0)";
