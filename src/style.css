@@ -1620,31 +1620,29 @@ a:focus-visible, button:focus-visible {
   .hero-name-box, .hero-name-box * { cursor: none; }
 }
 
-/* Page wipe transitions */
-.wipe {
+/* Page transition — Pixel Dissolve (cyan + ink cells, random stagger).
+   JS builds a 16×10 grid inside .pix on load, covers in ink pre-JS via the
+   inline head style, then pops cells out to reveal. Exit reverses it. */
+.pix {
   position: fixed;
   inset: 0;
   z-index: 80;
-  background: #f6f1e7;
-  transform: translateY(0);
+  display: grid;
   pointer-events: none;
+  visibility: hidden;
+  overflow: hidden;
 }
 
-.js .wipe { animation: wipe-enter 0.6s cubic-bezier(0.27, 0, 0.51, 1) 0.4s both; }
+.pix.on { visibility: visible; }
 
-.js .wipe-exit { animation: wipe-exit 0.6s cubic-bezier(0.27, 0, 0.51, 1) 0s both; }
-
-.wipe-done { display: none !important; }
-
-@keyframes wipe-enter {
-  from { transform: translateY(0); }
-  to { transform: translateY(-100%); }
+.pix div {
+  background: #2fb9e8;
+  transform: scale(0);
 }
 
-@keyframes wipe-exit {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
+.pix div.alt { background: #131311; }
+
+.pix-done { display: none !important; }
 
 /* Scroll reveal */
 .js [data-reveal] {
@@ -2120,7 +2118,7 @@ a:focus-visible, button:focus-visible {
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .wipe { display: none; }
+  .pix { display: none; }
   .row-preview { display: none; }
   .cursor-dot { display: none; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }

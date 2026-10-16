@@ -207,33 +207,116 @@ import { footerHTML } from "./components/footer.js";
     });
   }
 
-  /* Page wipe transitions (vertical; skipped under reduced motion via CSS) */
-  var wipe = document.querySelector(".wipe");
-  if (wipe) {
+  /* Page transition — Pixel Dissolve (cyan + ink, random stagger).
+     Cover is solid ink pre-JS (inline head style); JS swaps in the grid at
+     full cover, pops cells out to reveal, and reverses on link clicks. */
+  var pix = document.querySelector(".pix");
+  var PIX_COLS = 16, PIX_ROWS = 10;
+  /* Fewer cells on phones — same look, ~half the animations. */
+  if (window.innerWidth < 640) { PIX_COLS = 10; PIX_ROWS = 8; }
+  /* Fixed-seed PRNG so every build yields the IDENTICAL mosaic on every page.
+     Only the dissolve stagger stays random (motion, not layout). Must match
+     the inline bootstrap script in each HTML shell. */
+  function seededRand(seed) {
+    var s = seed;
+    return function () {
+      s |= 0; s = s + 0x6D2B79F5 | 0;
+      var t = Math.imul(s ^ s >>> 15, 1 | s);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  /* Snap cells to whole device pixels so neighbors tile edge-to-edge
+     with zero overlap and zero seam at any DPR (100%/125%/150%). The grid
+     is rounded up to always cover the viewport; .pix clips the excess. */
+  function applyPixGrid() {
+    if (!pix) return;
+    var dpr = window.devicePixelRatio || 1;
+    var r = pix.getBoundingClientRect();
+    var w = r.width || window.innerWidth;
+    var h = r.height || window.innerHeight;
+    var cw = Math.ceil(w * dpr / PIX_COLS) / dpr;
+    var ch = Math.ceil(h * dpr / PIX_ROWS) / dpr;
+    pix.style.gridTemplateColumns = "repeat(" + PIX_COLS + ", " + cw + "px)";
+    pix.style.gridTemplateRows = "repeat(" + PIX_ROWS + ", " + ch + "px)";
+  }
+  function buildPix() {
+    if (!pix) return [];
+    pix.innerHTML = "";
+    applyPixGrid();
+    var rand = seededRand(1337);
+    var cells = [];
+    for (var i = 0; i < PIX_COLS * PIX_ROWS; i++) {
+      var d = document.createElement("div");
+      if (rand() < 0.35) d.className = "alt";
+      d.style.transform = "scale(0)";
+      pix.appendChild(d);
+      cells.push(d);
+    }
+    return cells;
+  }
+  function pixOut(cells) {
+    return cells.map(function (c) {
+      try {
+        return c.animate(
+          [{ transform: "scale(1)" }, { transform: "scale(0)" }],
+          { duration: 260, easing: "cubic-bezier(.22,1,.36,1)", delay: Math.random() * 420, fill: "forwards" }
+        ).finished.catch(function () {});
+      } catch (e) { c.style.transform = "scale(0)"; return Promise.resolve(); }
+    });
+  }
+  function pixIn(cells) {
+    return cells.map(function (c) {
+      try {
+        return c.animate(
+          [{ transform: "scale(0)" }, { transform: "scale(1)" }],
+          { duration: 280, easing: "cubic-bezier(.22,1,.36,1)", delay: Math.random() * 480, fill: "forwards" }
+        ).finished.catch(function () {});
+      } catch (e) { c.style.transform = "scale(1)"; return Promise.resolve(); }
+    });
+  }
+  var pixFailsafe = null;
+  if (pix) {
     /* Never snapshot or restore a covered page (bfcache Back/Forward) */
     window.addEventListener("pagehide", function () {
-      wipe.classList.remove("wipe-exit", "wipe-done");
+      pix.classList.remove("on", "pix-done");
+      pix.style.background = "";
     });
-    window.addEventListener("pageshow", function () {
-      wipe.classList.remove("wipe-exit");
-      wipe.style.animation = "none";
-      void wipe.offsetWidth;
-      wipe.style.animation = "";
-    });
-    /* Failsafe: healthy enter finishes ~1.2s, so a cover alive at 2.5s is stuck */
-    var wipeFailsafe = window.setTimeout(function () { wipe.classList.add("wipe-done"); }, 2500);
-    window.__clearWipeFailsafe = function () { window.clearTimeout(wipeFailsafe); };
+    if (reduceMotion) {
+      pix.classList.add("pix-done");
+    } else {
+      /* Inline bootstrap script already painted the identical mosaic
+         pre-paint — reuse it so the pattern never reshuffles. */
+      var enterCells = pix.children.length
+        ? Array.prototype.slice.call(pix.children)
+        : buildPix();
+      applyPixGrid();
+      enterCells.forEach(function (c) { c.style.transform = "scale(1)"; });
+      pix.style.background = "transparent";
+      pix.classList.add("on");
+      try {
+        Promise.all(pixOut(enterCells)).then(function () { pix.classList.add("pix-done"); });
+      } catch (e) { pix.classList.add("pix-done"); }
+      /* Failsafe: healthy reveal finishes ~1s, so a cover alive at 2.5s is stuck */
+      pixFailsafe = window.setTimeout(function () { pix.classList.add("pix-done"); }, 2500);
+      window.__clearPixFailsafe = function () { window.clearTimeout(pixFailsafe); };
+    }
   }
-  if (wipe && !reduceMotion) {
+  if (pix && !reduceMotion) {
     Array.prototype.forEach.call(document.querySelectorAll('a[href]'), function (link) {
       var href = link.getAttribute("href") || "";
       var internal = href.charAt(0) !== "#" && !/^[a-z]+:/i.test(href) && !link.hasAttribute("target");
       if (!internal) return;
       link.addEventListener("click", function (e) {
         e.preventDefault();
-        if (window.__clearWipeFailsafe) window.__clearWipeFailsafe();
-        wipe.classList.add("wipe-exit");
-        window.setTimeout(function () { window.location.href = link.href; }, 620);
+        if (window.__clearPixFailsafe) window.__clearPixFailsafe();
+        var cells = buildPix();
+        pix.classList.remove("pix-done");
+        pix.style.background = "transparent";
+        pix.classList.add("on");
+        try { Promise.all(pixIn(cells)).catch(function () {}); }
+        catch (err) {}
+        window.setTimeout(function () { window.location.href = link.href; }, 820);
       });
     });
   }
