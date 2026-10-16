@@ -350,6 +350,12 @@ import { footerHTML } from "./components/footer.js";
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && menu.classList.contains("open")) setMenu(false);
   });
+  /* Tap outside the sheet closes it (sheet no longer covers the screen) */
+  document.addEventListener("click", function (e) {
+    if (!menu.classList.contains("open")) return;
+    if (menu.contains(e.target) || toggle.contains(e.target)) return;
+    setMenu(false);
+  });
 
   /* Seamless loops: duplicate marquee + gallery tracks */
   Array.prototype.forEach.call(document.querySelectorAll(".marquee-track, .gallery-track"), function (track) {

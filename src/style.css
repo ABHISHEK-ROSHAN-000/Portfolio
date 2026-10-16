@@ -374,76 +374,148 @@ a:focus-visible, button:focus-visible {
   line-height: 1;
 }
 
+/* Sticker toggle: bordered chip, cyan when open. */
 .menu-toggle {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   gap: 7px;
-  width: 30px;
-  height: 30px;
+  width: 42px;
+  height: 42px;
   padding: 0;
-  background: none;
-  border: 0;
+  background: var(--paper);
+  border: 1.5px solid #131311;
+  border-radius: 3px;
   cursor: pointer;
+  transition: background-color 0.25s ease;
 }
 
 .menu-toggle .bar {
   display: block;
+  width: 18px;
   height: 2px;
   border-radius: 2px;
   background: #131311;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+.menu-toggle[aria-expanded="true"] { background: var(--hero-cyan); }
+
 .menu-toggle[aria-expanded="true"] .bar-top { transform: translateY(4.5px) rotate(45deg); }
 .menu-toggle[aria-expanded="true"] .bar-bottom { transform: translateY(-4.5px) rotate(-45deg); }
 
+/* Dropdown sheet under the header: plain paper, hairline bottom border,
+   full-width left-aligned rows. The page stays visible below. */
 .mobile-menu {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 40;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
+  max-height: 100svh;
+  overflow-y: auto;
+  padding-top: 66px;
   background: #f6f1e7;
+  border-bottom: 1px solid rgba(19, 19, 17, 0.14);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, visibility 0.5s;
 }
 
 .mobile-menu.open {
   opacity: 1;
   visibility: visible;
+  transform: none;
 }
 
+/* Full-width rows: Flux label + icon, hairline dividers.
+   Hover = desktop nav-link ink block; current = cyan bar. */
 .mobile-menu nav {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 24px;
+  align-items: stretch;
 }
 
 .mobile-menu nav a {
-  font-size: 32px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px var(--gutter);
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   text-decoration: none;
-  padding: 2px 8px;
-  border-radius: 4px;
   color: #131311;
-  background: linear-gradient(#131311, #131311) left center / 0% 100% no-repeat;
-  transition: background-size 0.6s ease, color 0.2s ease;
+  background: transparent;
+  opacity: 0;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-.mobile-menu nav a:hover { color: #f6f1e7; background-size: 100% 100%; }
+.mobile-menu nav a + a { border-top: 1px solid rgba(19, 19, 17, 0.14); }
 
+.mobile-menu nav a svg { flex: none; }
+
+@keyframes mnav-in {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: none; }
+}
+
+.mobile-menu.open nav a {
+  opacity: 1;
+  animation: mnav-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.mobile-menu.open nav a:nth-child(1) { animation-delay: 0.05s; }
+.mobile-menu.open nav a:nth-child(2) { animation-delay: 0.11s; }
+.mobile-menu.open nav a:nth-child(3) { animation-delay: 0.17s; }
+.mobile-menu.open nav a:nth-child(4) { animation-delay: 0.23s; }
+
+.mobile-menu nav a:hover { background: #131311; color: #f6f1e7; }
+
+.mobile-menu nav a[aria-current="page"],
+.mobile-menu nav a[aria-current="page"]:hover {
+  background: var(--hero-cyan);
+  color: #131311;
+}
+
+/* Closing row of the sheet: static, left-aligned, blinking cyan dot. */
 .mobile-availability {
-  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 13px var(--gutter) 16px;
+  border-top: 1px solid rgba(19, 19, 17, 0.14);
+  font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: var(--text);
+  opacity: 0;
+}
+
+.mobile-availability::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--hero-cyan);
+  animation: hero-blink 2.6s ease-in-out infinite;
+}
+
+.mobile-menu.open .mobile-availability {
+  opacity: 1;
+  animation: mnav-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
 }
 
 /* Hero / Cover */
@@ -2126,6 +2198,8 @@ a:focus-visible, button:focus-visible {
   .hero-btn, .hero-btn-icon, .hero-btn-icon::before, .hero-btn-icon::after, .btn-handle, .ab-banner, .contact-btn { transition: none; }
   .dot-link::before { transition: none; }
   .nav-link, .mobile-menu nav a { transition: none; }
+  .mobile-menu, .mobile-menu.open .mobile-availability { transition: none; }
+  .mobile-menu nav a, .mobile-availability::before { animation: none; }
   .marquee-track { animation: none; }
   .gallery-track { animation: none; }
   .pulse-dot::before { animation: none; }
