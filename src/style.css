@@ -761,30 +761,6 @@ a:focus-visible, button:focus-visible {
   pointer-events: none;
 }
 
-.avatar-pin {
-  position: absolute;
-  width: 72px;
-  height: 72px;
-  padding: 6px;
-  border-radius: 50% 50% 50% 12px;
-  background: var(--hero-cyan);
-  border: 1.5px solid #131311;
-  transform: rotate(var(--rot, 0deg));
-  animation: hero-drift 9s ease-in-out infinite alternate;
-}
-
-.avatar-pin img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* Positions are % of the stage box, so the collage holds its composition
-   on any hero height instead of drifting off-screen on short viewports. */
-.avatar-pin--a { top: 46%; left: 0; --rot: -6deg; --rot2: 4deg; --dy0: -8px; --dy1: 8px; }
-.avatar-pin--b { top: 61%; right: 1%; --rot: 8deg; --rot2: -5deg; --dy0: 8px; --dy1: -8px; }
-
 .chip {
   position: absolute;
   display: inline-flex;
@@ -1759,9 +1735,6 @@ a:focus-visible, button:focus-visible {
   .hero-name-box { padding: 12px 20px; }
   .hero-name { font-size: clamp(30px, min(7.4vw, 12vh), 96px); }
   .hero-avail { font-size: 12px; }
-  .avatar-pin { width: 58px; height: 58px; }
-  .avatar-pin--a { top: 44%; }
-  .avatar-pin--b { top: 60%; }
   .chip { padding: 13px 20px; font-size: 13px; }
   .chip--role { top: 87%; left: 2%; }
   .chip--loc { top: 67%; right: 14%; }
@@ -1811,7 +1784,7 @@ a:focus-visible, button:focus-visible {
   .scribble-underline { width: 92px; height: 11px; }
   .hero-tapes { display: none; }
   .tape { padding: 11px 18px; font-size: 13px; white-space: normal; text-align: center; }
-  .tape, .avatar-pin { animation: none; }
+  .tape { animation: none; }
   .hero-name-box { padding: 12px 18px; }
   .hero-name { font-size: clamp(28px, 13vw, 52px); letter-spacing: 0.03em; transform: translate(0.015em, 0.058em); }
   .sel-handle { width: 11px; height: 11px; border-width: 1.5px; }
@@ -1828,7 +1801,6 @@ a:focus-visible, button:focus-visible {
     gap: 14px;
     margin: 56px 0 0;
   }
-  .avatar-pin { display: none; }
   .chip { position: static; padding: 13px 18px; font-size: 12px; }
   .chip--role { transform: rotate(-3deg); --rot: -3deg; --rot2: -1.5deg; }
   .chip--loc { transform: rotate(3deg); --rot: 3deg; --rot2: 1.5deg; }
@@ -2203,7 +2175,7 @@ a:focus-visible, button:focus-visible {
   .row-preview { display: none; }
   .cursor-dot { display: none; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
-  .chip, .avatar-pin, .hero-avail-dot { animation: none; }
+  .chip, .hero-avail-dot { animation: none; }
   .hero-btn, .hero-btn-icon, .hero-btn-icon::before, .hero-btn-icon::after, .btn-handle, .ab-banner, .contact-btn { transition: none; }
   .dot-link::before { transition: none; }
   .nav-link, .mobile-menu nav a { transition: none; }

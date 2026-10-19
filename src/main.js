@@ -1,4 +1,4 @@
-/* Yumiko static replica — vanilla interactions. No frameworks, no third parties. */
+/* Portfolio interactions — vanilla JS. No frameworks, no third parties. */
 import "./style.css";
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-500.css";

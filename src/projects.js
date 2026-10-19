@@ -104,58 +104,6 @@ export var projects = [
     solution:
       "A minimal responsive structure with strong hierarchy — content stays scannable and the site loads quickly on any connection.",
   },
-  {
-    slug: "coming-soon-client",
-    heroImage: "images/coming-soon-client/main.webp",
-    galleryImages: [
-      "images/coming-soon-client/1.webp",
-      "images/coming-soon-client/2.webp",
-      "images/coming-soon-client/3.webp",
-      "images/coming-soon-client/4.webp",
-    ],
-    title: "Coming Soon",
-    category: "Client Project",
-    initial: "C",
-    bg: "%23151515",
-    fg: "%232a2a2a",
-    tagline:
-      "A new client project — details coming soon.",
-    client: "To be announced",
-    date: "2026",
-    liveUrl: null,
-    overview:
-      "A new client project — full case study coming soon.",
-    challenge:
-      "Details coming soon.",
-    solution:
-      "Details coming soon.",
-  },
-  {
-    slug: "coming-soon-web",
-    heroImage: "images/coming-soon-web/main.webp",
-    galleryImages: [
-      "images/coming-soon-web/1.webp",
-      "images/coming-soon-web/2.webp",
-      "images/coming-soon-web/3.webp",
-      "images/coming-soon-web/4.webp",
-    ],
-    title: "Coming Soon",
-    category: "Web Project",
-    initial: "C",
-    bg: "%23191919",
-    fg: "%23303030",
-    tagline:
-      "A new web project — details coming soon.",
-    client: "To be announced",
-    date: "2026",
-    liveUrl: null,
-    overview:
-      "A new web project — full case study coming soon.",
-    challenge:
-      "Details coming soon.",
-    solution:
-      "Details coming soon.",
-  },
 ];
 
 /* Builds 4 placeholder gallery tiles per project by shifting its shades. */

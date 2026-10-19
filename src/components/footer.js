@@ -13,8 +13,6 @@ export var footerHTML = `
           <div class="gallery-card"><img src="images/monkey-mind/main.webp" width="1200" height="900" alt="Monkey Mind" loading="lazy"></div>
           <div class="gallery-card"><img src="images/pawshome/main.webp" width="1200" height="900" alt="PawsHome" loading="lazy"></div>
           <div class="gallery-card"><img src="images/ina/main.webp" width="1200" height="900" alt="inA" loading="lazy"></div>
-          <div class="gallery-card"><img src="images/coming-soon-client/main.webp" width="1200" height="900" alt="Coming Soon" loading="lazy"></div>
-          <div class="gallery-card"><img src="images/coming-soon-web/main.webp" width="1200" height="900" alt="Coming Soon" loading="lazy"></div>
         </div>
       </div>
       <div class="footer-bottom">
